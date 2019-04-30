@@ -1,0 +1,158 @@
+﻿
+@{
+	ViewData["Title"] = "Login";
+	Layout = "~/Views/Shared/_Start.cshtml";
+}
+
+@model Dms.Product.Respository.Model.LoginViewModel
+
+<link href="~/css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="~/js/jquery.js"></script>
+<script src="~/js/cloud.js" type="text/javascript"></script>
+
+<script language="javascript">
+	$(function () {
+		$('.loginbox').css({ 'position': 'absolute', 'left': ($(window).width() - 692) / 2 });
+		$(window).resize(function () {
+			$('.loginbox').css({ 'position': 'absolute', 'left': ($(window).width() - 692) / 2 });
+		})
+	});
+</script>
+
+
+<body style="background-color:#1c77ac; background-image:url(images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+
+
+
+	<div id="mainBody">
+		<div id="cloud1" class="cloud"></div>
+		<div id="cloud2" class="cloud"></div>
+	</div>
+
+	<div class="logintop">
+		<span><b style="color:white;margin-top:15px;font-size:20px">欢迎使用河边骨资源信息管理系统</span>
+		<ul>
+			<li><a href="javascrip:void(0)">帮助</a></li>
+			<li><a href="javascrip:void(0)">关于</a></li>
+		</ul>
+	</div>
+
+	<div class="loginbody">
+
+		<span class="systemlogo"></span>
+
+		<form asp-controller="Home" asp-action="Login" data-parsley-validate method="post">
+
+			<div class="loginbox">
+
+				<div>
+					<ul>
+						<li><input asp-for="UserName" type="text" class="loginuser" placeholder="请输入用户名" /></li>
+
+						<li>
+							<input type="password" asp-for="Password" class="loginpwd" placeholder="请输入密码" />
+						</li>
+
+						<li><button type="submit" class="form-control btn btn-primary submit">登录</button></li>
+
+						<li><span class="text-danger" style="margin-top:-15px">@ViewBag.ErrorInfo</span><</li>
+
+					</ul>
+				</div>
+			
+				
+
+			</div> 
+
+		</form> 
+		
+	</div>
+
+
+
+	<div class="loginbm">©2019 All Rights Reserved. HeBianGu! is Home. Privacy and Terms</div>
+</body>
+
+
+
+
+@*<div>
+		<a class="hiddenanchor" id="signup"></a>
+		<a class="hiddenanchor" id="signin"></a>
+
+		<div class="login_wrapper">
+			<div class="animate form login_form">
+
+				<section class="login_content">
+					<form asp-controller="Home" asp-action="Login" data-parsley-validate method="post">
+						<h1>健康养老监控平台</h1>
+
+						<span class="text-danger">@ViewBag.ErrorInfo</span>
+
+						<div>
+							<input asp-for="UserName" type="text" class="form-control" placeholder="请输入用户名" />
+						</div>
+
+						<div>
+							<input type="password" asp-for="Password" class="form-control" placeholder="请输入密码" />
+						</div>
+
+						<div>
+
+							<button type="submit" class="form-control btn btn-primary submit">登录</button>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="separator">
+
+							<div class="clearfix"></div>
+							<br />
+
+							<div>
+								<h4><img src="~/images/tty.ico" alt="..." class="fa" style="width:30px;height:30px;margin-right:10px;margin-left:5px">四川长虹智慧健康科技有限公司</h4>
+
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+
+			<div id="register" class="animate form registration_form">
+				<section class="login_content">
+					<form>
+						<h1>Create Account</h1>
+						<div>
+							<input type="text" class="form-control" placeholder="Username" required="" />
+						</div>
+						<div>
+							<input type="email" class="form-control" placeholder="Email" required="" />
+						</div>
+						<div>
+							<input type="password" class="form-control" placeholder="Password" required="" />
+						</div>
+						<div>
+							<a class="btn btn-default submit" href="index.html">Submit</a>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="separator">
+							<p class="change_link">
+								Already a member ?
+								<a href="#signin" class="to_register"> Log in </a>
+							</p>
+
+							<div class="clearfix"></div>
+							<br />
+
+							<div>
+								<h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+								<p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+		</div>
+	</div>*@

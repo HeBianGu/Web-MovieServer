@@ -1,0 +1,348 @@
+﻿@model Dms.Product.Respository.Model.UserConfigViewModel
+
+@{
+	ViewData["Title"] = "Monitor";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<p>
+		@await Html.PartialAsync("_MonitorCenter")
+	</p>*@
+
+
+<div class="x_content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>智能养老床垫实时监测  </h2>@*<small> 一号楼 </small>*@
+
+					@*<div>
+						<label>
+							<input class="js-switch" style="display: none;" type="checkbox" checked="" data-switchery="true">
+							@*<span class="switchery switchery-default" style="border-color: rgb(223, 223, 223); transition:border 0.4s, box-shadow 0.4s; box-shadow: inset 0px 0px 0px 0px #dfdfdf; background-color: rgb(255, 255, 255);">
+								<small style="transition:background-color 0.4s, left 0.2s; left: 0px;"></small>
+							</span> Checked*@
+					@*</label>*@
+
+					<div class="row" style="float:right">
+						@*<h2>*@
+						<h4>
+							@*报警声音：<input name="showvoice" class="js-switch" style="display: none;" type="checkbox" checked="" onclick="showvoicechange()" />
+								报警声音：<input class="js-switch" type="checkbox" onclick="showvoicechange()" />*@
+							<strong>报警声音：</strong><label>
+								<input name="showvoice" class="js-switch" style="display: none;" onclick="showvoicechange()" checked="@Model.UseVoice" type="checkbox" data-switchery="true">
+							</label>
+						</h4>
+						@*</h2>*@
+					</div>
+
+					<div class="row" style="float:right;margin-right:50px">
+						<h4>
+							<strong>状态说明：</strong>
+							<label style="background:@Dms.Product.Respository.Model.AlarmColorConfiger.LeaveBedColor;width:30px;height:15px;vertical-align:middle;"></label>
+							离床状态
+							<label style="background:@Dms.Product.Respository.Model.AlarmColorConfiger.OnBedColor;width:30px;height:15px;vertical-align:middle;"></label>
+							在床状态
+							<label style="background:@Dms.Product.Respository.Model.AlarmColorConfiger.AlarmColor;width:30px;height:15px;vertical-align:middle;"></label>
+							报警状态
+						</h4>
+					</div>
+
+					<div class="row" style="float:right;margin-right:50px">
+						<h4> 
+								<label style="margin-right:10px"><input name="showtype" type="radio" value="Type1" />平铺样式 </label>
+								<label><input name="showtype" type="radio" checked value="Type2" />分组样式 </label>
+							 
+						</h4>
+					</div>
+
+					<div class="clearfix"></div>
+				</div>
+
+				<div id="div-part" />
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg" style="width:95%;height:580px;">
+		<div class="modal-content">
+			@*style="background-color:rgba(255,255,255,0.9);"*@
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">监控详细信息  </h4>
+			</div>
+
+			<div class="modal-body">
+				<div role="tabpanel" data-example-id="togglable-tabs">
+					<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist" style="height:10px;">
+						<li class="active" role="presentation" style="margin-top:-30px;width:150px;text-align:center">
+							<a id="home-tab" role="tab" aria-expanded="true" href="#tab_content1" data-toggle="tab">实时信息</a>
+						</li>
+						<li role="presentation" style="margin-top:-30px;width:150px;text-align:center;">
+							<a id="profile-tab" role="tab" aria-expanded="false" href="#tab_content2" data-toggle="tab">历史信息</a>
+						</li>
+					</ul>
+
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade active in" id="tab_content1" role="tabpanel" aria-labelledby="home-tab">
+							<div class="modal-body">
+								<div id="div-realpart">
+
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="tab_content2" role="tabpanel" aria-labelledby="profile-tab">
+							<div class="modal-body">
+								<div id="div-part1">
+
+								</div>
+								<h4 style="color:red"> 注：<small style="color:red">历史信息默认只显示当天数据，获取更多数据请查看历史信息菜单</small></h4>
+
+							</div>
+						</div> 
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-primary">关闭</button>
+			</div>
+		</div>
+
+		<audio autoplay="autoplay" id="auto" src=""></audio>
+	</div>
+</div>
+<!-- Custom Theme Scripts -->
+@*<script src="../build/js/custom.min.js"></script>*@
+
+<script type="text/javascript">
+
+	//定时刷新实时数据
+	function RefreshMonitor() {
+
+		var find = $("input[name='showtype']:checked").val();
+
+		var voice = $("input[name='showvoice']:checked").val();
+
+		if (voice != null) {
+			//console.log("报警提示音");
+			//报警提示音
+			var auto = $("#auto");
+
+			var colletion = document.getElementsByClassName('statealarm');
+
+			if (colletion.length > 0) {
+				auto.attr("src", "http://data.huiyi8.com/2017/gha/03/17/1702.mp3");
+			}
+		}
+
+
+		$.ajax({
+
+			url: 'RefreshMonitor',
+
+			data: { type: find },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				$("#div-part").html(data);
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+
+	setInterval(RefreshMonitor, 3000);
+
+	window.onload = function () {
+
+		RefreshMonitor();
+	}
+
+	//弹出实时数据页面
+	function getRealLine(obj) {
+
+		//alert(obj);
+
+		//更新实时数据
+		$.ajax({
+
+			url: 'ShowRealLine',
+
+			data: { id: obj },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				$("#div-realpart").html(data);
+
+				console.log("刷新..");
+
+				//var echartBar = document.getElementById('main');
+
+				//console.log(echartBar);
+
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+
+		//更新历史数据  
+		$.ajax({
+
+			url: 'RefreshHistoryData',
+
+			data: { id: obj, date: "" },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				$("#div-part1").html(data);
+
+				console.log("刷新..");
+
+
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+
+	//报警闪屏
+	function blinklink() {
+
+
+		var colletion = document.getElementById('statealarm');
+
+		var colletion = document.getElementsByClassName('statealarm');
+
+		var find = document.getElementById('currentshowtype').value;
+
+		for (var i = 0; i < colletion.length; i++) {
+
+			var item = colletion[i];
+
+			if (find == "Type1") {
+				var color = item.style.background;
+
+				//console.log(item.style.borderBottomColor);
+
+				item.style.background = item.style.borderBottomColor;
+
+				item.style.borderBottomColor = color;
+
+			} else {
+				var color = item.style.color;
+
+				//console.log(item.style.borderBottomColor);
+
+				item.style.color = item.style.borderBottomColor;
+
+				item.style.borderBottomColor = color;
+			}
+
+
+		}
+
+	}
+
+	var timer = setInterval(blinklink, 200);
+
+	//保存是否提示音
+	function showvoicechange() {
+
+		var result = $("input").prop("checked");
+
+		$.ajax({
+
+			url: 'SaveVoiceChecked',
+
+			data: { value: result },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				console.log("保存成功！");
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+
+	//设置翻身
+	function turnonclick(obj) {
+
+		event.stopPropagation();
+
+		event.preventDefault();
+
+		$.ajax({
+
+			url: 'RefreshTurnCustom',
+
+			data: { id: obj },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				console.log("success");
+
+				var myDate = new Date();//获取系统当前时间
+
+				alert("用户翻身更新完成!翻身时间[" + myDate.toLocaleString() + "]");
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+
+
+
+			
+</script>

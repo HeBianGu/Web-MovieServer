@@ -1,0 +1,600 @@
+﻿@model Dms.Product.Respository.Model.MonitorItemViewModel
+
+@{
+	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+
+		<div class="x_panel">
+			<div class="x_title">
+				<a asp-action="Index" class="btn btn-link">返回列表</a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+
+				<form asp-action="Edit" id="demo-form2" class="form-horizontal form-label-left">
+
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					@*唯一标识*@
+					<div class="form-group" hidden>
+						<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+							<input asp-for="Monitor.ID" class="form-control">
+						</div>
+					</div>
+
+					@*图片*@
+					<div class="row">
+						<div class="row col-md-2 col-sm-3 col-xs-12">
+							<div style="width:110px; height:110px;float:right">
+								<img id="image" class="img-responsive" alt="" src="~/images/user.png">
+							</div>
+						</div>
+
+						<div class="row col-md-9 col-sm-3 col-xs-12">
+
+							@*姓名和身份证*@
+							<div class="form-group">
+								<label asp-for="Monitor.CUSTOMID" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-4 col-sm-5 col-xs-12">
+									@*<input asp-for="Customer.NAME" readonly placeholder="请点击右侧按钮选择用户" class="form-control">*@
+									@*@Html.DropDownListFor(o => o.Customer.NAME, ViewBag.CustomerList as IEnumerable<SelectListItem>, "-请选择用户数据-", new { @class = "dropdown-toggle form-control col-md-7 col-xs-12" })*@
+
+									<select id="selectcustomer" asp-for="Monitor.CUSTOMID" required asp-items="@ViewBag.CustomerList" onchange="change()" class="select2_single form-control">
+										@*<option>-请选择用户数据-</option>*@
+									</select>
+									<span asp-validation-for="Monitor.CUSTOMID" class="text-danger"></span>
+								</div>
+
+								<label class="control-label col-md-1 col-sm-3 col-xs-12">身份证号</label>
+								<div class="col-md-4 col-sm-5 col-xs-12">
+									<input id="cardid" asp-for="CardID" required readonly placeholder="请点击右侧按钮选择用户" class="form-control">
+								</div>
+							</div>
+
+							@*床位编码和床垫编码*@
+							<div class="form-group">
+								<label asp-for="Monitor.BEDID" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-4 col-sm-5 col-xs-12">
+
+									<select id="selectbed" asp-for="Monitor.BEDID" required asp-items="@ViewBag.BedList" onchange="change1()" class="select2_single form-control">
+										@*<option>-请选择床位数据-</option>*@
+									</select>
+									<span asp-validation-for="Monitor.BEDID" class="text-danger"></span>
+
+								</div>
+
+								<label class="control-label col-md-1 col-sm-3 col-xs-12">床垫编号</label>
+								<div class="col-md-4 col-sm-5 col-xs-12">
+									<input id="matcode" asp-for="MatCode" required readonly placeholder="请先选择床位数据" class="form-control">
+								</div>
+							</div>
+
+							@*心率和呼吸*@
+							<div class="form-group">
+								@*心率*@
+								<label asp-for="HeartRange" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+
+								<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+									<input asp-for="HeartRange.MinValue" placeholder="@Html.DisplayNameFor(modelItem => Model.HeartRange.MinValue) (次/分)" class="form-control">
+									<span asp-validation-for="HeartRange.MinValue" required class="text-danger"></span>
+								</div>
+
+								<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+									<input asp-for="HeartRange.MaxVlalue" placeholder="@Html.DisplayNameFor(modelItem => Model.HeartRange.MaxVlalue) (次/分)" class="form-control">
+									<span asp-validation-for="HeartRange.MaxVlalue" required class="text-danger"></span>
+								</div>
+
+								@*呼吸*@
+								<label asp-for="BreathRange" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+
+								<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+									<input asp-for="BreathRange.MinValue" type="text" required placeholder="@Html.DisplayNameFor(modelItem => Model.BreathRange.MinValue) (次/分)" class="form-control">
+									<span asp-validation-for="BreathRange.MinValue"  class="text-danger"></span>
+
+								</div>
+
+								<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+									<input asp-for="BreathRange.MaxVlalue" type="text" required placeholder="@Html.DisplayNameFor(modelItem => Model.BreathRange.MaxVlalue) (次/分)" class="form-control">
+									<span asp-validation-for="BreathRange.MaxVlalue" class="text-danger"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group"></div>
+					<div class="form-group"></div>
+
+					@*监护区间一*@
+					<div>
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+								<label asp-for="TimeRange1" class="control-label col-md-12 col-sm-3 col-xs-12"></label>
+							</div>
+
+							@*监护时间*@
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">监护时间</label>
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange1.MinValue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange1.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange1.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange1.MinValue" class="text-danger"></span>
+										}
+									</div>
+
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时-</label>*@
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange1.MaxVlalue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange1.MinValue) (小时)" class="form-control">
+
+										@if (Model != null && Model.TimeRange1.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange1.MaxVlalue" class="text-danger"></span>
+										}
+									</div>
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时</label>*@
+
+									@*启用*@
+									<div class="col-md-2 col-sm-3 col-xs-12">
+										<label><input asp-for="@Model.TimeRange1.IsEnbled" />启用</label>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+
+							</div>
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									@*离床时间*@
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange1.LeaveBedTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange1.LeaveBedTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange1.LeaveBedTime) (分钟)" class="form-control">
+
+										@if (Model != null && Model.TimeRange1.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange1.LeaveBedTime" class="text-danger"></span>
+										}
+									</div>
+
+									@*体动时间*@
+
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange1.MoveTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange1.MoveTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange1.MoveTime) (秒)" class="form-control">
+
+										@if (Model != null && Model.TimeRange1.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange1.MoveTime" class="text-danger"></span>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+
+					@*监护区间一*@
+					<div>
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+								<label asp-for="TimeRange2" class="control-label col-md-12 col-sm-3 col-xs-12"></label>
+							</div>
+
+							@*监护时间*@
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">监护时间</label>
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange2.MinValue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange2.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange2.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange2.MinValue" class="text-danger"></span>
+										}
+									</div>
+
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时-</label>*@
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange2.MaxVlalue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange2.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange2.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange2.MaxVlalue" class="text-danger"></span>
+										}
+
+									</div>
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时</label>*@
+
+									@*启用*@
+									<div class="col-md-2 col-sm-3 col-xs-12">
+										<label><input asp-for="@Model.TimeRange2.IsEnbled" />启用</label>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+
+							</div>
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									@*离床时间*@
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange2.LeaveBedTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange2.LeaveBedTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange2.LeaveBedTime) (分钟)" class="form-control">
+										@if (Model != null && Model.TimeRange2.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange2.LeaveBedTime" class="text-danger"></span>
+										}
+									</div>
+
+									@*体动时间*@
+
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange2.MoveTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange2.MoveTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange2.MoveTime) (秒)" class="form-control">
+										@if (Model != null && Model.TimeRange2.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange2.MoveTime" class="text-danger"></span>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+
+					@*监护区间一*@
+					<div>
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+								<label asp-for="TimeRange3" class="control-label col-md-12 col-sm-3 col-xs-12"></label>
+							</div>
+
+							@*监护时间*@
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">监护时间</label>
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange3.MinValue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange3.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange3.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange3.MinValue" class="text-danger"></span>
+										}
+									</div>
+
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时-</label>*@
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange3.MaxVlalue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange3.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange3.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange3.MaxVlalue" class="text-danger"></span>
+										}
+
+									</div>
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时</label>*@
+
+									@*启用*@
+									<div class="col-md-2 col-sm-3 col-xs-12">
+										<label><input asp-for="@Model.TimeRange3.IsEnbled" />启用</label>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+
+							</div>
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									@*离床时间*@
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange3.LeaveBedTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange3.LeaveBedTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange3.LeaveBedTime) (分钟)" class="form-control">
+										@if (Model != null && Model.TimeRange3.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange3.LeaveBedTime" class="text-danger"></span>
+										}
+									</div>
+
+									@*体动时间*@
+
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange3.MoveTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange3.MoveTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange3.MoveTime) (秒)" class="form-control">
+										@if (Model != null && Model.TimeRange3.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange3.MoveTime" class="text-danger"></span>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+
+					@*监护区间一*@
+					<div>
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+								<label asp-for="TimeRange4" class="control-label col-md-12 col-sm-3 col-xs-12"></label>
+							</div>
+
+							@*监护时间*@
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">监护时间</label>
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange4.MinValue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange4.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange4.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange4.MinValue" class="text-danger"></span>
+										}
+									</div>
+
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时-</label>*@
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange4.MaxVlalue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange4.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange4.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange4.MaxVlalue" class="text-danger"></span>
+										}
+
+									</div>
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时</label>*@
+
+									@*启用*@
+									<div class="col-md-2 col-sm-3 col-xs-12">
+										<label><input asp-for="@Model.TimeRange4.IsEnbled" />启用</label>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+
+							</div>
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									@*离床时间*@
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange4.LeaveBedTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange4.LeaveBedTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange4.LeaveBedTime) (分钟)" class="form-control">
+										@if (Model != null && Model.TimeRange4.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange4.LeaveBedTime" class="text-danger"></span>
+										}
+									</div>
+
+									@*体动时间*@
+
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange4.MoveTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange4.MoveTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange4.MoveTime) (秒)" class="form-control">
+										@if (Model != null && Model.TimeRange4.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange4.MoveTime" class="text-danger"></span>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+
+					@*监护区间五*@
+					<div>
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+								<label asp-for="TimeRange5" class="control-label col-md-12 col-sm-3 col-xs-12"></label>
+							</div>
+
+							@*监护时间*@
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">监护时间</label>
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange5.MinValue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange5.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange5.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange5.MinValue" class="text-danger"></span>
+										}
+									</div>
+
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时-</label>*@
+
+									<div class="col-md-2 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange5.MaxVlalue" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange5.MinValue) (小时)" class="form-control">
+										@if (Model != null && Model.TimeRange5.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange5.MaxVlalue" class="text-danger"></span>
+										}
+
+									</div>
+									@*<label class="control-label col-md-1 col-sm-3 col-xs-12">时</label>*@
+
+									@*启用*@
+									<div class="col-md-2 col-sm-3 col-xs-12">
+										<label><input asp-for="@Model.TimeRange5.IsEnbled" />启用</label>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="row">
+							<div class="row col-md-2 col-sm-3 col-xs-12">
+
+							</div>
+							<div class="row col-md-9 col-sm-3 col-xs-12">
+
+								<div class="form-group">
+									@*离床时间*@
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange5.LeaveBedTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange5.LeaveBedTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange5.LeaveBedTime) (分钟)" class="form-control">
+
+										@if (Model != null && Model.TimeRange5.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange5.LeaveBedTime" class="text-danger"></span>
+										}
+									</div>
+
+									@*体动时间*@
+
+									<label class="control-label col-md-1 col-sm-3 col-xs-12">@Html.DisplayNameFor(modelItem => Model.TimeRange5.MoveTime)</label>
+
+									<div class="col-md-4 col-sm-12 col-xs-12">
+										<input asp-for="TimeRange5.MoveTime" type="text" placeholder="@Html.DisplayNameFor(modelItem => Model.TimeRange5.MoveTime) (秒)" class="form-control">
+
+										@if (Model != null && Model.TimeRange5.IsEnbled)
+										{
+											<span asp-validation-for="TimeRange5.MoveTime" class="text-danger"></span>
+										}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+
+					<div class="form-group">
+
+						<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+
+							<input type="submit" value="保存" class="btn btn-primary" style="width:150px" />
+
+							<button asp-action="Index" class="btn btn-default submit" style="width:150px">取消</button>
+						</div>
+
+						<span class="text-danger"></span>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function change() {
+
+		var find = document.getElementById("selectcustomer").value;
+
+		$.ajax({
+
+			url: 'GetCustomer',
+
+			data: { id: find },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+
+				//alert(data.cardid);
+				//加载身份证
+				document.getElementById("cardid").value = data.cardid; 
+				//加载图片
+				document.getElementById("image").src = data.image;
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+	function change1() {
+
+		var find = document.getElementById("selectbed").value;
+
+		$.ajax({
+
+			url: 'GetMat',
+
+			data: { id: find },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				document.getElementById("matcode").value = data;
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	} 
+
+	window.onload = function () {
+
+
+		
+		change();
+	}
+	
+
+
+</script>

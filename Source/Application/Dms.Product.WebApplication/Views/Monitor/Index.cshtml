@@ -1,0 +1,306 @@
+﻿@model IEnumerable<Dms.Product.Respository.Model.MonitorViewModel>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<a asp-action="Create" class="btn btn-primary">新增监控</a> 	<a asp-action="Monitor" asp-controller="Monitor" class="btn btn-primary">实时监控</a>
+
+			</div>
+			<div class="x_content"> 
+
+				@*<table id="datatable-buttons" class="table table-striped table-bordered" style="font-size:2px">*@
+				<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>
+								序号
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Bed.CODE)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Bed.MATID)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Customer.NAME)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Customer.CARDID)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.Monitor.CDATE)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.HeartRange)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.BreathRange)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.TimeRange1)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.TimeRange2)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.TimeRange3)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.TimeRange4)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MonitorDetial.TimeRange5)
+							</th>
+							<th>
+								护理等级/翻身
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@for (int i = 1; i <= Model.Count(); i++)
+						{
+							var item = Model.ToArray()[i - 1];
+
+							string cid = item.Customer.ID;
+
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => i)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Bed.CODE)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Bed.MATID)
+								</td>
+								<td>
+									@*@Html.DisplayFor(modelItem => item.Customer.NAME)*@
+									<a href="javascript:void(0);" onclick='getUserInfo("@cid")' class="btn btn-link  btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg">@Html.DisplayFor(modelItem => item.Customer.NAME)</a>
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Customer.CARDID)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.MonitorDetial.Monitor.CDATE)
+								</td>
+								@*<th>
+										<a class="btn btn-link  btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg">@Html.DisplayFor(modelItem => item.Bed.NAME)</a>
+									</th>
+									<th>
+										<a class="btn btn-link  btn-xs">@Html.DisplayFor(modelItem => item.Mat.NAME) </a>
+									</th>*@
+								<td>
+									@Html.DisplayFor(modelItem => item.MonitorDetial.HeartRange.MinValue)-@Html.DisplayFor(modelItem => item.MonitorDetial.HeartRange.MaxVlalue)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.MonitorDetial.BreathRange.MinValue) - @Html.DisplayFor(modelItem => item.MonitorDetial.BreathRange.MaxVlalue)
+								</td>
+								<td>
+									@if (item.MonitorDetial.TimeRange1.IsEnbled)
+									{
+										<div>
+											<center style="font-size:x-small;text-align:center">
+												@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange1.MinValue)-@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange1.MaxVlalue)
+											</center>
+										</div>
+
+										<div>
+											<center style="height:5px;font-size:x-small">
+												离床:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange1.LeaveBedTime)分/体动:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange1.MoveTime)秒
+											</center>
+										</div>
+
+									}
+									else
+									{
+										<a>×</a>
+									}
+									@*离床30分钟/体动30秒*@
+								</td>
+								<td>
+									@if (item.MonitorDetial.TimeRange2.IsEnbled)
+									{
+										<div>
+											<center style="font-size:x-small;text-align:center">
+												@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange2.MinValue)-@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange2.MaxVlalue)
+											</center>
+										</div>
+
+										<div>
+											<center style="height:5px;font-size:x-small">
+												离床:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange2.LeaveBedTime)分/体动:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange2.MoveTime)秒
+											</center>
+										</div>
+
+									}
+									else
+									{
+										<a>×</a>
+									}
+									@*离床30分钟/体动30秒*@
+								</td>
+								<td>
+									@if (item.MonitorDetial.TimeRange3.IsEnbled)
+									{
+										<div>
+											<center style="font-size:x-small;text-align:center">
+												@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange3.MinValue)-@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange3.MaxVlalue)
+											</center>
+										</div>
+
+										<div>
+											<center style="height:5px;font-size:x-small">
+												离床:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange3.LeaveBedTime)分/体动:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange3.MoveTime)秒
+											</center>
+										</div>
+
+									}
+									else
+									{
+										<a>×</a>
+									}
+									@*离床30分钟/体动30秒*@
+								</td>
+								<td>
+									@if (item.MonitorDetial.TimeRange4.IsEnbled)
+									{
+										<div>
+											<center style="font-size:x-small;text-align:center">
+												@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange4.MinValue)-@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange4.MaxVlalue)
+											</center>
+										</div>
+
+										<div>
+											<center style="height:5px;font-size:x-small">
+												离床:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange4.LeaveBedTime)分/体动:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange4.MoveTime)秒
+											</center>
+										</div>
+
+									}
+									else
+									{
+										<a>×</a>
+									}
+									@*离床30分钟/体动30秒*@
+								</td>
+								<td>
+									@if (item.MonitorDetial.TimeRange5.IsEnbled)
+									{
+										<div>
+											<center style="font-size:x-small;text-align:center">
+												@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange5.MinValue)-@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange5.MaxVlalue)
+											</center>
+										</div>
+
+										<div>
+											<center style="height:5px;font-size:x-small">
+												离床:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange5.LeaveBedTime)分/体动:@Html.DisplayFor(modelItem => item.MonitorDetial.TimeRange5.MoveTime)秒
+											</center>
+										</div>
+
+									}
+									else
+									{
+										<a>×</a>
+									}
+									@*离床30分钟/体动30秒*@
+								</td>
+								<td>
+									<center style="font-size:x-small;text-align:center">
+										@Html.DisplayFor(modelItem => item.Customer.NURSE)
+									</center>
+
+									<center style="height:5px;font-size:x-small">
+										@Html.DisplayFor(modelItem => item.Customer.TURN)
+									</center>
+								</td>
+								<td>
+									<form asp-action="Delete">
+										@*<a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-success btn-xs">设置</a> |
+											<a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger  btn-xs">出院</a>*@
+										<a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> 设置 </a>
+										<button type="submit" asp-action="Delete" asp-route-id="@item.ID" onclick="return confirm('是否确定用户出院，出院后监控数据将被清空？')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 出院 </button>
+
+
+										@*<a class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</a>*@
+
+									</form>
+
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+
+				<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">用户详情</h4>
+							</div>
+							<div class="modal-body"> 
+
+								<div id="div-part">
+
+								</div>
+								@*<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+									<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>*@
+							</div>
+							<div class="modal-footer">
+								@*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+								<button type="button" data-dismiss="modal" class="btn btn-primary">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function getUserInfo(obj) { 
+
+		$.ajax({
+
+			url: 'ShowCustomer',
+
+			data: { id: obj },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				$("#div-part").html(data);
+
+				console.log("刷新.."); 
+
+
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+</script>
+
+

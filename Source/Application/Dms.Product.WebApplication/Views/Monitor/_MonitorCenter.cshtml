@@ -1,0 +1,166 @@
+﻿@model Tuple<List<Dms.Product.Respository.Model.MonitorViewModel>, string>
+
+<div class="x_content" style="display: block;">
+
+	<!-- Large modal -->
+	@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>*@
+
+	<input id="currentshowtype" value="@Model.Item2" hidden />
+
+	@if (Model.Item2 == "Type1")
+	{
+		<div id="main" class="row">
+			@foreach (var item in Model.Item1)
+			{
+				@*<a asp-action="Details" asp-route-id="@item.ID" >*@
+
+				<a data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer">
+					<div class="col-md-55 col-md-5 col-sm-12 col-xs-12">
+						<div class="thumbnail @Html.DisplayFor(modelItem => item.StateClass)" style="background:@Html.DisplayFor(modelItem => item.BackColor);height:210px;color:#FFFFFF;border-bottom-color:@Html.DisplayFor(modelItem => item.FlashColor)">
+							<h3 class="brief"><i style="color:@Html.DisplayFor(modelItem => item.ForeColor)">@Html.DisplayFor(modelItem => item.Bed.NAME) <small style="color:#FFFFFF;">- @Html.DisplayFor(modelItem => item.Bed.MATID)</small> </i></h3>
+
+							<div class="left col-md-55 col-sm-12 col-xs-12 text-center" style="position:absolute; right:15px; top:40px; width:130px; height:130px">
+								<img class="img-responsive" alt="" src="@Html.DisplayFor(model=>item.Customer.IMAGE)">@*img-circle*@
+							</div>
+
+							<div class="right col-md-55 col-sm-12 col-xs-12" style="width:70%">
+								<h4 style="color:@Html.DisplayFor(modelItem => item.ForeColor);text-decoration:blink;">
+									<span style="color:white;font-size:18px">@Html.DisplayFor(modelItem => item.Customer.NAME)</span>  @Html.DisplayFor(modelItem => item.Customer.SEX)   @Html.DisplayFor(modelItem => item.Customer.AGE)岁
+								</h4>
+
+								<ul class="list-unstyled">
+									<li  title="实时心率,闪动表示心率超出预警范围"  style="color:@Html.DisplayFor(modelItem => item.Heart.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Heart.FlashColor);"><i class="fa fa-heart" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Heart.Description)</small></li>
+									<li  title="实时呼吸,闪动表示呼吸超出预警范围" style="color:@Html.DisplayFor(modelItem => item.Breath.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Breath.FlashColor);"><i class="fa fa-leaf" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Breath.Description)</small></li>
+									<li  title="实时持续体动时间,闪动表示持续体动时间超出预警范围"  style="color:@Html.DisplayFor(modelItem => item.TiDong.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.TiDong.FlashColor);"><i class="fa fa-male" style="width:15px;text-align:center"></i><small> @Html.DisplayFor(modelItem => item.TiDong.Description)</small></li>
+									<li  title="实时睡眠状态"  style="color:@Html.DisplayFor(modelItem => item.Shuimian.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Shuimian.FlashColor);"><i class="fa fa-download" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Shuimian.Description)</small></li>
+									<li  title="实时在床/离床持续时间"  style="color:@Html.DisplayFor(modelItem => item.ZaiChuang.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.FlashColor);"><i class="fa fa-upload" style="width:15px;text-align:center"></i><small> @Html.DisplayFor(modelItem => item.ZaiChuang.Description)</small></li>
+									<li>
+										@*信号*@
+										<i class="fa fa-signal"  title="设备是否离线,闪动表示离线预警"  style="width:20px;text-align:center;color:@Html.DisplayFor(modelItem => item.NiaoSi.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.NiaoSi.FlashColor);"></i>
+										@*尿湿*@
+										<i class="fa fa-tint"  title="床垫是否尿湿,闪动表示尿湿预警"  style="width:15;text-align:center;color:@Html.DisplayFor(modelItem => item.NiaoSi.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.NiaoSi.FlashColor);"></i>
+										@*护理*@
+										<i style="width:30px;text-align:center;color:@Html.DisplayFor(modelItem => item.Huli.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Huli.FlashColor);"> @Html.DisplayFor(modelItem => item.Huli.Description)</i>
+										@*翻身*@
+										<i  title="是否超过翻身护理时间,闪动翻身预警" class="@Html.DisplayFor(modelItem => item.FanShen.StateClass)" onclick='turnonclick("@item.ID")' style="color:@Html.DisplayFor(modelItem => item.FanShen.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.FanShen.FlashColor);">@Html.DisplayFor(modelItem => item.FanShen.Description)</i>
+										@*聲音*@
+										@*<i class="fa fa-volume-up"></i>*@
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</a>
+			}
+		</div>
+	}
+	else
+	{
+		<div class="form-group" style="border-bottom:1px solid #337AB7;">报警床位</div>
+
+		<div id="main" class="row">
+
+			@foreach (var item in Model.Item1.Where(l => l.StateClass == Dms.Product.Respository.Model.StateClassConfiger.StateAlarm))
+			{
+				<a data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer" onclick='getRealLine("@item.ID")'>
+					<div class="col-md-55 col-md-5 col-sm-12 col-xs-12">
+						<div class="thumbnail" style="background:@Html.DisplayFor(modelItem => item.BackColor);height:210px;color:#FFFFFF;border-bottom-color:@Html.DisplayFor(modelItem => item.FlashColor)">
+							<h3 class="brief"><i style="color:@Html.DisplayFor(modelItem => item.ForeColor)">@Html.DisplayFor(modelItem => item.Bed.NAME) <small style="color:#FFFFFF;">- @Html.DisplayFor(modelItem => item.Bed.MATID)</small> </i></h3>
+
+
+							<div class="left col-md-55 col-sm-12 col-xs-12 text-center" style="position:absolute; right:15px; top:40px; width:130px; height:130px">
+								<img class="img-responsive" alt="" src="@Html.DisplayFor(model=>item.Customer.IMAGE)">@*img-circle*@
+							</div>
+
+							<div class="right col-md-55 col-sm-12 col-xs-12" style="width:70%">
+								<h4 style="color:@Html.DisplayFor(modelItem => item.ForeColor);text-decoration:blink;">
+									<span style="color:white;font-size:18px">@Html.DisplayFor(modelItem => item.Customer.NAME)</span>  @Html.DisplayFor(modelItem => item.Customer.SEX)      @Html.DisplayFor(modelItem => item.Customer.AGE)岁
+								</h4>
+								<ul class="list-unstyled">
+									<li class="@Html.DisplayFor(modelItem => item.Heart.StateClass)"  title="实时心率,闪动表示心率超出预警范围" style="color:@Html.DisplayFor(modelItem => item.Heart.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Heart.FlashColor);"><i class="fa fa-heart" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Heart.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.Breath.StateClass)" title="实时呼吸,闪动表示呼吸超出预警范围" style="color:@Html.DisplayFor(modelItem => item.Breath.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Breath.FlashColor);"><i class="fa fa-leaf" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Breath.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.TiDong.StateClass)" title="实时持续体动时间,闪动表示持续体动时间超出预警范围" style="color:@Html.DisplayFor(modelItem => item.TiDong.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.TiDong.FlashColor);"><i class="fa fa-male" style="width:15px;text-align:center"></i><small> @Html.DisplayFor(modelItem => item.TiDong.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.Shuimian.StateClass)" title="实时睡眠状态" style="color:@Html.DisplayFor(modelItem => item.Shuimian.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Shuimian.FlashColor);"><i class="fa fa-download" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Shuimian.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.ZaiChuang.StateClass)" title="实时在床/离床持续时间" style="color:@Html.DisplayFor(modelItem => item.ZaiChuang.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.FlashColor);"><i class="fa fa-upload" style="width:15px;text-align:center"></i><small> @Html.DisplayFor(modelItem => item.ZaiChuang.Description)</small></li>
+									<li>
+										@*信号*@
+										<i class="fa fa-signal @Html.DisplayFor(modelItem => item.Connect.StateClass)" title="设备是否离线,闪动表示离线预警" style="width:20px;text-align:center;color:@Html.DisplayFor(modelItem => item.NiaoSi.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.NiaoSi.FlashColor);"></i>
+										@*尿湿*@
+										<i class="fa fa-tint @Html.DisplayFor(modelItem => item.NiaoSi.StateClass)" title="床垫是否尿湿,闪动表示尿湿预警" style="width:15;text-align:center;color:@Html.DisplayFor(modelItem => item.NiaoSi.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.NiaoSi.FlashColor);"></i>
+										@*护理*@
+										<i class="@Html.DisplayFor(modelItem => item.Huli.StateClass)" style="width:30px;text-align:center;color:@Html.DisplayFor(modelItem => item.Huli.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Huli.FlashColor);"> @Html.DisplayFor(modelItem => item.Huli.Description)</i>
+										@*翻身*@
+										<i class="@Html.DisplayFor(modelItem => item.FanShen.StateClass)" title="是否超过翻身护理时间,闪动翻身预警" onclick='turnonclick("@item.ID")' style="color:@Html.DisplayFor(modelItem => item.FanShen.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.FanShen.FlashColor);">@Html.DisplayFor(modelItem => item.FanShen.Description)</i>
+										@*聲音*@
+										@*<i class="fa fa-volume-up"></i>*@
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</a>
+			}
+		</div>
+
+		<div class="form-group" style="border-bottom:1px solid #337AB7;">监控床位</div>
+
+		<div id="main" class="row">
+			@foreach (var item in Model.Item1.Where(l => l.StateClass != Dms.Product.Respository.Model.StateClassConfiger.StateAlarm))
+			{
+				<a data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer">
+					<div class="col-md-55 col-md-5 col-sm-12 col-xs-12">
+						<div class="thumbnail" style="background:@Html.DisplayFor(modelItem => item.BackColor);height:210px;color:#FFFFFF;border-bottom-color:@Html.DisplayFor(modelItem => item.FlashColor)">
+							<h3 class="brief"><i style="color:@Html.DisplayFor(modelItem => item.ForeColor)">@Html.DisplayFor(modelItem => item.Bed.NAME) <small style="color:#FFFFFF;">- @Html.DisplayFor(modelItem => item.Bed.MATID)</small> </i></h3>
+
+
+							<div class="left col-md-55 col-sm-12 col-xs-12 text-center" style="position:absolute; right:15px; top:40px; width:130px; height:130px">
+								<img class="img-responsive" alt="" src="@Html.DisplayFor(model=>item.Customer.IMAGE)">@*img-circle*@
+							</div>
+
+							<div class="right col-md-55 col-sm-12 col-xs-12" style="width:70%">
+								<h4 style="color:@Html.DisplayFor(modelItem => item.ForeColor);text-decoration:blink;">
+									<span style="color:white;font-size:18px">@Html.DisplayFor(modelItem => item.Customer.NAME)</span>    @Html.DisplayFor(modelItem => item.Customer.SEX)      @Html.DisplayFor(modelItem => item.Customer.AGE)岁
+								</h4>
+								<ul class="list-unstyled">
+									<li class="@Html.DisplayFor(modelItem => item.Heart.StateClass)"  title="实时心率,闪动表示心率超出预警范围" style="color:@Html.DisplayFor(modelItem => item.Heart.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Heart.FlashColor);"><i class="fa fa-heart" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Heart.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.Breath.StateClass)" title="实时呼吸,闪动表示呼吸超出预警范围" style="color:@Html.DisplayFor(modelItem => item.Breath.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Breath.FlashColor);"><i class="fa fa-leaf" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Breath.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.TiDong.StateClass)" title="实时持续体动时间,闪动表示持续体动时间超出预警范围" style="color:@Html.DisplayFor(modelItem => item.TiDong.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.TiDong.FlashColor);"><i class="fa fa-male" style="width:15px;text-align:center"></i><small> @Html.DisplayFor(modelItem => item.TiDong.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.Shuimian.StateClass)"  title="实时睡眠状态"  style="color:@Html.DisplayFor(modelItem => item.Shuimian.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Shuimian.FlashColor);"><i class="fa fa-download" style="width:15px;text-align:center"></i> <small>@Html.DisplayFor(modelItem => item.Shuimian.Description)</small></li>
+									<li class="@Html.DisplayFor(modelItem => item.ZaiChuang.StateClass)"  title="实时在床/离床持续时间"  style="color:@Html.DisplayFor(modelItem => item.ZaiChuang.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.FlashColor);"><i class="fa fa-upload" style="width:15px;text-align:center"></i><small> @Html.DisplayFor(modelItem => item.ZaiChuang.Description)</small></li>
+									<li>
+										@*信号*@
+										<i class="fa fa-signal @Html.DisplayFor(modelItem => item.Connect.StateClass)" title="设备是否离线,闪动表示离线预警" style="width:20px;text-align:center;color:@Html.DisplayFor(modelItem => item.NiaoSi.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.NiaoSi.FlashColor);"></i>
+										@*尿湿*@
+										<i class="fa fa-tint @Html.DisplayFor(modelItem => item.NiaoSi.StateClass)" title="床垫是否尿湿,闪动表示尿湿预警" style="width:15;text-align:center;color:@Html.DisplayFor(modelItem => item.NiaoSi.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.NiaoSi.FlashColor);"></i>
+										@*护理*@
+										<i class="@Html.DisplayFor(modelItem => item.Huli.StateClass)" style="width:30px;text-align:center;color:@Html.DisplayFor(modelItem => item.Huli.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.Huli.FlashColor);"> @Html.DisplayFor(modelItem => item.Huli.Description)</i>
+										@*翻身*@
+										<i class="@Html.DisplayFor(modelItem => item.FanShen.StateClass)" title="是否超过翻身护理时间,闪动翻身预警" onclick='turnonclick("@item.ID")' style="color:@Html.DisplayFor(modelItem => item.FanShen.ForeColor);border-bottom-color:@Html.DisplayFor(modelItem => item.FanShen.FlashColor);">@Html.DisplayFor(modelItem => item.FanShen.Description)</i>
+										@*聲音*@
+										@*if (item.UseVoice)
+											{
+												<i class="fa fa-volume-up"></i>
+											}
+											else
+											{
+												<i class="fa fa-volume-off"></i>
+											}*@
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</a>
+			}
+		</div>
+	}
+
+</div>
+
+
+
+
+

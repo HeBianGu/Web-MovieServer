@@ -1,0 +1,101 @@
+﻿@model Dms.Product.Base.Model.mbc_dv_movie
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>mbc_dv_movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MediaType" class="control-label"></label>
+                <input asp-for="MediaType" class="form-control" />
+                <span asp-validation-for="MediaType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagTypes" class="control-label"></label>
+                <input asp-for="TagTypes" class="form-control" />
+                <span asp-validation-for="TagTypes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaType" class="control-label"></label>
+                <input asp-for="AreaType" class="form-control" />
+                <span asp-validation-for="AreaType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExtendType" class="control-label"></label>
+                <input asp-for="ExtendType" class="form-control" />
+                <span asp-validation-for="ExtendType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArticulationType" class="control-label"></label>
+                <input asp-for="ArticulationType" class="form-control" />
+                <span asp-validation-for="ArticulationType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VipType" class="control-label"></label>
+                <input asp-for="VipType" class="form-control" />
+                <span asp-validation-for="VipType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromType" class="control-label"></label>
+                <input asp-for="FromType" class="form-control" />
+                <span asp-validation-for="FromType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderNum" class="control-label"></label>
+                <input asp-for="OrderNum" class="form-control" />
+                <span asp-validation-for="OrderNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlayCount" class="control-label"></label>
+                <input asp-for="PlayCount" class="form-control" />
+                <span asp-validation-for="PlayCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Score" class="control-label"></label>
+                <input asp-for="Score" class="form-control" />
+                <span asp-validation-for="Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CDATE" class="control-label"></label>
+                <input asp-for="CDATE" class="form-control" />
+                <span asp-validation-for="CDATE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UDATE" class="control-label"></label>
+                <input asp-for="UDATE" class="form-control" />
+                <span asp-validation-for="UDATE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ISENBLED" class="control-label"></label>
+                <input asp-for="ISENBLED" class="form-control" />
+                <span asp-validation-for="ISENBLED" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,739 @@
+﻿@model Dms.Product.Respository.Model.MonitorViewModel
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+
+		<div class="x_content" style="color:#666666">
+			<form asp-action="Index" class="form-horizontal form-label-left">
+				<div class="row">
+					<b><label asp-for="Bed.CODE" class="control-label col-md-1 col-sm-3 col-xs-12"></label></b>
+					<div class="col-md-1 col-sm-12 col-xs-12 ">
+						<h6>@Model.Bed.CODE</h6>
+					</div>
+					<label asp-for="Bed.MATID" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+					<div class="col-md-2 col-sm-12 col-xs-12 ">
+						<h6 id="lable_matcode">@Model.Bed.MATID</h6>
+					</div>
+					<label asp-for="Customer.NAME" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+					<div class="col-md-2 col-sm-12 col-xs-12 ">
+						<h6>@Model.Customer.NAME</h6>
+					</div>
+					<label asp-for="Customer.CARDID" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+					<div class="col-md-1 col-sm-12 col-xs-12 ">
+						<h6>@Model.Customer.CARDID</h6>
+					</div>
+					@*创建时间*@
+					<label class="control-label col-md-1 col-sm-3 col-xs-12">使用日期</label>
+					<div class="col-md-1 col-sm-12 col-xs-12 ">
+						<h6>@Model.MonitorDetial.Monitor.CDATE.Substring(0, 10)</h6>
+					</div>
+				</div>
+
+				@*监护时间*@
+				<div class="row">
+					@*心率*@
+					<label class="control-label col-md-1 col-sm-3 col-xs-12">心率监测</label>
+
+					<div class="col-md-1 col-sm-12 col-xs-12 ">
+						<h6><strong>@Model.MonitorDetial.HeartRange.MinValue</strong>  -<strong> @Model.MonitorDetial.HeartRange.MaxVlalue</strong> </h6>
+					</div>
+
+					<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间1</label>
+					<div class="col-md-2 col-sm-12 col-xs-12 ">
+						@if (Model.MonitorDetial.TimeRange1.IsEnbled)
+						{<h6>
+								<strong>@Model.MonitorDetial.TimeRange1.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange1.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange1.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange1.MoveTime</strong>  秒
+							</h6>
+						}
+						else
+						{
+							<h6>×</h6>
+						}
+					</div>
+
+
+					<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间2</label>
+					<div class="col-md-2 col-sm-12 col-xs-12 ">
+						@if (Model.MonitorDetial.TimeRange2.IsEnbled)
+						{<h6>
+								<strong>@Model.MonitorDetial.TimeRange2.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange2.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange2.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange2.MoveTime</strong>  秒
+							</h6>
+						}
+						else
+						{
+							<h6>×</h6>
+						}
+					</div>
+
+					<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间3</label>
+					<div class="col-md-3 col-sm-12 col-xs-12 ">
+						@if (Model.MonitorDetial.TimeRange3.IsEnbled)
+						{<h6>
+								<strong>@Model.MonitorDetial.TimeRange3.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange3.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange3.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange3.MoveTime</strong>  秒
+							</h6>
+						}
+						else
+						{
+							<h6>×</h6>
+						}
+					</div>
+				</div>
+
+				<div class="row">
+
+					@*呼吸*@
+					<label class="control-label col-md-1 col-sm-3 col-xs-12">呼吸监测</label>
+
+					<div class="col-md-1 col-sm-12 col-xs-12">
+						<h6><strong>@Model.MonitorDetial.BreathRange.MinValue</strong> - <strong>@Model.MonitorDetial.BreathRange.MaxVlalue</strong></h6>
+					</div>
+
+					<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间4</label>
+					<div class="col-md-2 col-sm-12 col-xs-12">
+						@if (Model.MonitorDetial.TimeRange4.IsEnbled)
+						{<h6>
+								<strong>@Model.MonitorDetial.TimeRange4.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange4.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange4.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange4.MoveTime</strong>  秒
+							</h6>
+						}
+						else
+						{
+							<h6>×</h6>
+						}
+					</div>
+
+					<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间5</label>
+					<div class="col-md-2 col-sm-12 col-xs-12">
+						@if (Model.MonitorDetial.TimeRange5.IsEnbled)
+						{<h6>
+								<strong>@Model.MonitorDetial.TimeRange5.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange5.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange5.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange5.MoveTime</strong>  秒
+							</h6>
+						}
+						else
+						{
+							<h6>×</h6>
+						}
+					</div>
+				</div>
+
+
+				@*图标数据*@
+				<div class="row" style="width: 95%;height:700px;text-align:left;margin:0 auto;">
+					<br />
+					<div class="row">
+						<h2 id="header-day">
+							正在加载，请稍等... <small></small>
+						</h2>
+					</div>
+
+					<div class="row  col-md-12 col-sm-12 col-xs-12">
+						<div id="div_chart1" style="width: 100%;height:300px;text-align:center;"><span style="margin:0 auto;line-height:50">I'm Ready.</span></div>
+					</div>
+
+					<br />
+					<div class="row  col-md-12 col-sm-12 col-xs-12">
+						<h2 id="header-night">
+							正在加载，请稍等... <small></small>
+						</h2>
+					</div>
+
+					<div class="row">
+						<div id="div_chart2" style="width: 100%;height:300px;text-align:center;"><span style="margin:0 auto;line-height:50">I'm Ready.</span></div>
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+	</div>
+</div>
+
+<script src="~/vendors/echarts/dist/echarts.min.js"></script>
+<script src="~/vendors/echarts/map/js/world.js"></script>
+
+<script>
+
+	var echartBar1;
+	var echartBar2;
+
+	function InitChart() {
+		var theme = {
+			color: [
+				'#26B99A', '#34495E', '#BDC3C7', '#3498DB',
+				'#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
+			],
+
+			title: {
+				itemGap: 8,
+				textStyle: {
+					fontWeight: 'normal',
+					color: '#408829'
+				}
+			},
+
+			dataRange: {
+				color: ['#1f610a', '#97b58d']
+			},
+
+			toolbox: {
+				color: ['#408829', '#408829', '#408829', '#408829']
+			},
+
+			tooltip: {
+				backgroundColor: 'rgba(0,0,0,0.5)',
+				axisPointer: {
+					type: 'bar',
+					lineStyle: {
+						color: '#408829',
+						type: 'dashed'
+					},
+					crossStyle: {
+						color: '#408829'
+					},
+					shadowStyle: {
+						color: 'rgba(200,200,200,0.3)'
+					}
+				}
+			},
+
+			dataZoom: {
+				dataBackgroundColor: '#eee',
+				fillerColor: 'rgba(64,136,41,0.2)',
+				handleColor: '#408829'
+			},
+			grid: {
+				borderWidth: 0
+			},
+
+			categoryAxis: {
+				axisLine: {
+					lineStyle: {
+						color: '#408829'
+					}
+				},
+				splitLine: {
+					lineStyle: {
+						color: ['#eee']
+					}
+				}
+			},
+
+			valueAxis: {
+				axisLine: {
+					lineStyle: {
+						color: '#408829'
+					}
+				},
+				splitArea: {
+					show: true,
+					areaStyle: {
+						color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
+					}
+				},
+				splitLine: {
+					lineStyle: {
+						color: ['#eee']
+					}
+				}
+			},
+			timeline: {
+				lineStyle: {
+					color: '#408829'
+				},
+				controlStyle: {
+					normal: { color: '#408829' },
+					emphasis: { color: '#408829' }
+				}
+			},
+
+			k: {
+				itemStyle: {
+					normal: {
+						color: '#68a54a',
+						color0: '#a9cba2',
+						lineStyle: {
+							width: 1,
+							color: '#408829',
+							color0: '#86b379'
+						}
+					}
+				}
+			},
+			map: {
+				itemStyle: {
+					normal: {
+						areaStyle: {
+							color: '#ddd'
+						},
+						label: {
+							textStyle: {
+								color: '#c12e34'
+							}
+						}
+					},
+					emphasis: {
+						areaStyle: {
+							color: '#99d2dd'
+						},
+						label: {
+							textStyle: {
+								color: '#c12e34'
+							}
+						}
+					}
+				}
+			},
+			force: {
+				itemStyle: {
+					normal: {
+						linkStyle: {
+							strokeColor: '#408829'
+						}
+					}
+				}
+			},
+			chord: {
+				padding: 4,
+				itemStyle: {
+					normal: {
+						lineStyle: {
+							width: 1,
+							color: 'rgba(128, 128, 128, 0.5)'
+						},
+						chordStyle: {
+							lineStyle: {
+								width: 1,
+								color: 'rgba(128, 128, 128, 0.5)'
+							}
+						}
+					},
+					emphasis: {
+						lineStyle: {
+							width: 1,
+							color: 'rgba(128, 128, 128, 0.5)'
+						},
+						chordStyle: {
+							lineStyle: {
+								width: 1,
+								color: 'rgba(128, 128, 128, 0.5)'
+							}
+						}
+					}
+				}
+			},
+			gauge: {
+				startAngle: 225,
+				endAngle: -45,
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
+						width: 8
+					}
+				},
+				axisTick: {
+					splitNumber: 10,
+					length: 12,
+					lineStyle: {
+						color: 'auto'
+					}
+				},
+				axisLabel: {
+					textStyle: {
+						color: 'auto'
+					}
+				},
+				splitLine: {
+					length: 18,
+					lineStyle: {
+						color: 'auto'
+					}
+				},
+				pointer: {
+					length: '90%',
+					color: 'auto'
+				},
+				title: {
+					textStyle: {
+						color: '#333'
+					}
+				},
+				detail: {
+					textStyle: {
+						color: 'auto'
+					}
+				}
+			},
+			textStyle: {
+				fontFamily: 'Arial, Verdana, sans-serif'
+			}
+		};
+
+		echartBar1 = echarts.init(document.getElementById('div_chart1'), theme);
+
+		echartBar1.setOption({
+			title: {
+				//text: '2018-11-23 20:00-08:00 夜间',
+				//subtext: '心率、呼吸实时信息曲线图'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['睡眠状态']
+				//data: data.legend.data
+			},
+			toolbox: {
+				show: false
+			},
+			calculable: false,
+			xAxis: [{
+				type: 'category',
+				data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+				//data: data.xAxis.data
+			}],
+			yAxis: [{
+				type: 'value'
+			}],
+			grid: {
+				left: '2%',
+				right: '5%',
+				bottom: '1%',
+				top: '13%',
+				containLabel: true
+			},
+			//series: data.series
+			series: [{
+				name: '睡眠状态',
+				type: 'bar'
+			}
+			]
+		});
+
+		echartBar1.hideLoading();
+
+		echartBar2 = echarts.init(document.getElementById('div_chart2'), theme);
+
+		echartBar2.setOption({
+			title: {
+				//text: '2018-11-23 20:00-08:00 夜间',
+				//subtext: '心率、呼吸实时信息曲线图'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['睡眠状态']
+				//data: data.legend.data
+			},
+			toolbox: {
+				show: false
+			},
+			calculable: false,
+			xAxis: [{
+				type: 'category',
+				data: ['1?', '2?', '3?', '4?', '5?', '6?', '7?', '8?', '9?', '10?', '11?', '12?']
+				//data: data.xAxis.data
+			}],
+			yAxis: [{
+				type: 'value'
+			}],
+			grid: {
+				left: '2%',
+				right: '5%',
+				bottom: '1%',
+				top: '13%',
+				containLabel: true
+			},
+			//series: data.series
+			series: [{
+				name: '睡眠状态',
+				type: 'bar',
+				//markLine: {
+				//	data: [
+				//		{
+				//			yAxis: 3,
+				//			name: '深睡阶段'
+				//		}
+				//		,
+				//		{
+				//			yAxis: 2,
+				//			name: '浅睡阶段'
+				//		}
+				//		,
+				//		{
+				//			yAxis: 1,
+				//			name: '入睡阶段'
+				//		}
+				//	]
+				//}
+			}
+			]
+		});
+
+		echartBar2.hideLoading();
+	}
+
+	InitChart();
+
+
+	function GetSleepQualityData() {
+
+		var find = document.getElementById("selectcustomer").value;
+
+		var date = document.getElementById("single_cal4").value;
+
+		var colorList = [
+			'#C3C8E6', '#C3C8E6', '#9CA6DE', '#5F74F0'
+		];
+
+		//alert(find);
+
+		//console.log(find);
+
+		$.ajax({
+
+			url: 'GetSleepQualityData',
+
+
+			data: { id: find, date: date },
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				//没有数据时提示
+
+				document.getElementById("header-day").innerHTML = data.d1.message;
+
+				document.getElementById("header-night").innerHTML = data.d2.message;
+
+				console.log("刷新..");
+
+
+				echartBar1.setOption({
+					tooltip: {
+						trigger: 'axis'
+					},
+					toolbox: {
+						show: false
+					},
+					calculable: true,
+					xAxis: [{
+						type: 'category',
+						data: data.d1.data.xAxis.data
+					}],
+					//yAxis: [{
+					//	type: 'value'
+					//}],
+					yAxis: [
+						{
+							'type': 'value',
+							'name': '睡眠状态',
+							'max': 3,
+							'min': 0
+						} 
+					],
+					//series: data.series
+					series: [{
+						name: '睡眠状态',
+						type: 'bar',
+						//barWidth: 80,
+						barGap: '-1%',/*多个并排柱子设置柱子之间的间距*/
+						barCategoryGap: '-1%',/*多个并排柱子设置柱子之间的间距*/
+						itemStyle: {
+							normal: {
+								color: function (params) {
+									return colorList[params.data]
+								}
+							}
+						},
+						//data: [90.0, 40.9, 70.0, 83.2, 75.6, 76.7, 135.6, 162.2, 132.6, 120.0, 60.4, 63.3],
+						data: data.d1.data.series[0].data,
+						large: true,
+						//markPoint: {
+						//	data: [{
+						//		type: 'max',
+						//		name: '最大值'
+						//	}, {
+						//		type: 'min',
+						//		name: '最小值'
+						//	}, {
+						//		name: '心率',
+						//		value: 2.3,
+						//		xAxis: 19,
+						//		yAxis: 60
+						//	}]
+						//},
+
+						markLine: {
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: function (params) {
+											return params.name
+										}
+									},
+									lineStyle: {
+										//type: 'dotted',
+										color: '#5F74F0'
+										// type: 'solid'
+										//'dotted'虚线 'solid'实线
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 1,
+									name: '入睡阶段',
+									color: '#989898'
+								},
+								{
+									yAxis: 2,
+									name: '浅睡阶段',
+									color: '#C3C8E6'
+								},
+								{
+									yAxis: 3,
+									name: '深睡阶段',
+									color: '#C3C8E6'
+								}
+							]
+
+						}
+					}
+					]
+				});
+
+				echartBar1.hideLoading();
+
+				echartBar2.setOption({
+					tooltip: {
+						trigger: 'axis'
+					},
+					toolbox: {
+						show: false
+					},
+					calculable: true,
+					xAxis: [{
+						type: 'category',
+						data: data.d2.data.xAxis.data
+					}],
+					//yAxis: [{
+					//	type: 'value'
+					//}],
+					yAxis: [
+						{
+							'type': 'value',
+							'name': '睡眠状态',
+							'max': 3,
+							'min': 0
+						}
+					],
+					//series: data.series
+					series: [{
+						name: '睡眠状态',
+						type: 'bar',
+						//barWidth: 80,
+						barGap: '-1%',/*多个并排柱子设置柱子之间的间距*/
+						barCategoryGap: '-1%',/*多个并排柱子设置柱子之间的间距*/
+						itemStyle: {
+							normal: {
+								color: function (params) {
+									return colorList[params.data]
+								}
+							}
+						},
+						//data: [90.0, 40.9, 70.0, 83.2, 75.6, 76.7, 135.6, 162.2, 132.6, 120.0, 60.4, 63.3],
+						data: data.d2.data.series[0].data,
+						large: true,
+						//markPoint: {
+						//	data: [{
+						//		type: 'max',
+						//		name: '最大值'
+						//	}, {
+						//		type: 'min',
+						//		name: '最小值'
+						//	}, {
+						//		name: '心率',
+						//		value: 2.3,
+						//		xAxis: 19,
+						//		yAxis: 60
+						//	}]
+						//},
+
+						markLine: {
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: function (params) {
+											return params.name
+										}
+									},
+									lineStyle: {
+										//type: 'dotted',
+										color: '#5F74F0'
+										// type: 'solid'
+										//'dotted'虚线 'solid'实线
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 1,
+									name: '入睡阶段',
+									color: '#989898'
+								},
+								{
+									yAxis: 2,
+									name: '浅睡阶段',
+									color: '#C3C8E6'
+								},
+								{
+									yAxis: 3,
+									name: '深睡阶段',
+									color: '#C3C8E6'
+								}
+							]
+
+						}
+					}
+					]
+				});
+
+				echartBar2.hideLoading();
+
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+
+	//倒计时执行
+	setTimeout("GetSleepQualityData();", 10);
+
+</script>
+

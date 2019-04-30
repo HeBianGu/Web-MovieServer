@@ -1,0 +1,140 @@
+﻿@model Dms.Product.Base.Model.ehc_dv_customer
+
+
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_content">
+				
+				<form asp-action="Edit" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="row">
+						<div class="row col-md-3 col-sm-3 col-xs-12">
+							<div class="row">
+								<div style="width:150px; height:150px;float:right">
+									<img id="preview" class="img-responsive file_img" alt="" src="@Html.DisplayFor(model=>model.IMAGE)">
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row col-md-9 col-sm-3 col-xs-12">
+
+
+							<div class="form-group" hidden>
+								<label asp-for="IMAGE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+							
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input id="imageinput" asp-for="IMAGE" class="form-control" />
+								</div>
+								<span asp-validation-for="IMAGE" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label asp-for="NAME" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+							
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="NAME" readonly class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label asp-for="SEX" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									@*<input asp-for="SEX" class="form-control col-md-7 col-xs-12" />*@
+									<input id="selectbed" asp-for="SEX" readonly class="select2_single form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label asp-for="CARDID" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+							
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="CARDID" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="AGE" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+							
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="AGE" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label asp-for="CONTACT" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+							
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="CONTACT" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label asp-for="TEL" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+							
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="TEL" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="DIAGNOSIS" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="DIAGNOSIS" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="HISTORY" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="HISTORY" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="NURSE" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									@*<input asp-for="NURSE" type="radio" class="form-control col-md-7 col-xs-12" />*@
+
+									<input asp-for="NURSE" readonly class="select2_single form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="TURN" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+
+									<input id="selectturn" asp-for="TURN" readonly class="select2_single form-control" />
+								</div>
+							</div>
+
+							<div id="div_truntime" hidden class="form-group">
+								<label class="control-label col-md-2 col-sm-3 col-xs-12">护理间隔</label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+
+									@*<input asp-for="TURN" class="form-control col-md-7 col-xs-12" />*@
+
+									<input asp-for="TIMESPAN" readonly class="select2_single form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="INDATE" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="INDATE" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="OUTDATE" class="control-label col-md-2 col-sm-3 col-xs-12"></label>
+								<div class="col-md-7 col-sm-5 col-xs-12">
+									<input asp-for="OUTDATE" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="OUTDATE" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+	</div>
+</div>
+

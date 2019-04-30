@@ -1,0 +1,114 @@
+﻿@model Dms.Product.Base.Model.ehc_dv_user
+
+@{
+	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					新增用户
+				</h2>
+				@*<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a href="#">Settings 1</a>
+							</li>
+							<li>
+								<a href="#">Settings 2</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a class="close-link"><i class="fa fa-close"></i></a>
+					</li>
+				</ul>*@
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<p>
+					<a asp-action="Index" class="btn btn-link">返回列表</a>
+				</p>
+
+				<form asp-action="Edit" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group">
+						<label asp-for="NAME" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="NAME" class="form-control col-md-7 col-xs-12" />
+						</div>
+
+						<span asp-validation-for="NAME" class="text-danger"></span>
+
+					</div>
+					<div class="form-group">
+						<label asp-for="PASSWORD" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="PASSWORD" class="form-control col-md-7 col-xs-12"/>
+						</div>
+						<span asp-validation-for="PASSWORD" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="USERNAME" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="USERNAME" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="USERNAME" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="TEL" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="TEL" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="TEL" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="ROLEID" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							@*<input asp-for="ROLEID" class="form-control col-md-7 col-xs-12" />*@
+
+							<select asp-for="ROLEID" asp-items="@ViewBag.RoleList" class="select2_single form-control">
+								@*<option>-请选择角色数据-</option>*@
+							</select>
+						</div>
+						<span asp-validation-for="ROLEID" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+
+						<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+
+							<input type="submit" value="保存" class="btn btn-primary" style="width:150px" />
+
+							<button asp-action="Index" class="btn btn-default submit" style="width:150px">取消</button>
+						</div>
+
+						<span class="text-danger"></span>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+

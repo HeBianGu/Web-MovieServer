@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Dms.Product.Base.Model.ehc_dv_customer>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header>
+	<!-- Datatables -->
+	@*<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+		<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+		<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+		<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+		<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">*@
+</header>
+
+
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				@*<h2> 客户列表 <small>Users</small></h2>*@
+
+				<a asp-action="Create" class="btn btn-primary">新增用户</a>
+
+				@*<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a href="#">Settings 1</a>
+							</li>
+							<li>
+								<a href="#">Settings 2</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a class="close-link"><i class="fa fa-close"></i></a>
+					</li>
+				</ul>*@
+				@*<div class="clearfix"></div>*@
+
+			</div>
+			<div class="x_content">
+
+
+				<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+					@*class="table"*@
+					<thead>
+						<tr>
+							<th>
+								序号
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.IMAGE)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.NAME)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.CARDID)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.SEX)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.CONTACT)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.TEL)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.DIAGNOSIS)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.HISTORY)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.NURSE)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.TURN)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.INDATE)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.OUTDATE)
+							</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						@*style="color:#515356;font-weight:normal;font-size:smaller"*@
+						@for (int i = 1; i <= Model.Count(); i++)
+						{
+							var item = Model.ToArray()[i - 1];
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => i)
+								</td>
+								<th> 
+									<img src="@Html.DisplayFor(model => item.IMAGE)" style="height:60px;width:60px;margin: 0 auto;vertical-align: middle;display: inline-block;" alt="" />
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.NAME)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.CARDID)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.SEX)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.CONTACT)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.TEL)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.DIAGNOSIS)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.HISTORY)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.NURSE)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.TURN)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.INDATE)
+								</th>
+								<th>
+									@Html.DisplayFor(model => item.OUTDATE)
+								</th>
+								<td>
+									<form asp-action="Delete">
+										@*<a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-success btn-xs">编辑</a> |
+						<a asp-action="Enbled" asp-route-id="@item.ID" class="btn btn-warning  btn-xs">出院</a> |
+						<a asp-action="Details" asp-route-id="@item.ID" class="btn btn-warning  btn-xs">详情</a> |
+						<input type="submit" asp-action="Delete" asp-route-id="@item.ID" value="删除" class="btn btn-danger  btn-xs" />*@
+
+										<a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-xs" ><i class="fa fa-folder"></i> 编辑 </a>
+										<a asp-action="Enbled" asp-route-id="@item.ID" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> 出院 </a>
+										<a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"  ><i class="fa fa-pencil"></i> 详情 </a>
+										<button type="submit" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> 删除 </button>
+									</form>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

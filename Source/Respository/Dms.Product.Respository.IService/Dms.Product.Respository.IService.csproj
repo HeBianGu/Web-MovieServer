@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\Product\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Base\Dms.Product.Base.Model\Dms.Product.Base.Model.csproj" />
+    <ProjectReference Include="..\..\General\Dms.Product.General.LocalDataBase\Dms.Product.General.LocalDataBase.csproj" />
+    <ProjectReference Include="..\Dms.Product.Respository.Model\Dms.Product.Respository.Model.csproj" />
+  </ItemGroup>
+
+</Project>

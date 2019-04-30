@@ -1,0 +1,371 @@
+﻿@model Dms.Product.Base.Model.ehc_dv_customer
+
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	/*蓝色按钮,绝对定位*/
+	.blueButton {
+		position: absolute;
+		display: block;
+		width: 100px;
+		height: 30px;
+		background-color: cornflowerblue;
+		color: #fff;
+		text-decoration: none;
+		text-align: center;
+		font: normal normal normal 16px/30px 'Microsoft YaHei';
+		cursor: pointer;
+		border-radius: 4px;
+		margin-top: 5px;
+		margin-left: 150px;
+	}
+
+		.blueButton:hover {
+			text-decoration: none;
+		}
+	/*自定义上传,位置大小都和a完全一样,而且完全透明*/
+	.myFileUpload {
+		position: absolute;
+		display: block;
+		width: 100px;
+		height: 30px;
+		opacity: 0;
+		margin-top: 5px;
+		margin-left: 150px;
+	}
+	/*显示上传文件夹名的Div*/
+	.show {
+		position: absolute;
+		top: 40px;
+		width: 100%;
+		height: 30px;
+		font: normal normal normal 14px/30px 'Microsoft YaHei';
+	}
+</style>
+
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					编辑用户
+				</h2> 
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<p>
+					<a asp-action="Index" class="btn btn-link">返回列表</a>
+				</p>
+				<form asp-action="Edit" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="row">
+						<div class="row col-md-2 col-sm-3 col-xs-12">
+							<div class="row">
+								<div style="width:150px; height:150px;float:right">
+									<img id="preview" class="img-responsive file_img" alt="" src="@Html.DisplayFor(model=>model.IMAGE)">
+								</div>
+							</div>
+
+							<br /><br /><br /><br />
+
+							<div class="row  col-md-2 col-sm-3 col-xs-12" style="margin-left:0px">
+
+								<a href='javascript:void(0);' class="blueButton" style="float:right">选择图片</a>
+
+								<input type="file" multiple id="f" name="f" onchange="change()" style="float:right" class="myFileUpload" />
+								@*<div class="show"></div>*@
+							</div>
+
+						</div>
+
+						<div class="row col-md-9 col-sm-3 col-xs-12">
+
+
+							<div class="form-group" hidden>
+								<label asp-for="IMAGE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<span class="required">*</span>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input id="imageinput" asp-for="IMAGE" class="form-control" />
+								</div>
+								<span asp-validation-for="IMAGE" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label asp-for="NAME" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<span class="required">*</span>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="NAME" class="form-control" />
+								</div>
+								<span asp-validation-for="NAME" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label asp-for="SEX" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									@*<input asp-for="SEX" class="form-control col-md-7 col-xs-12" />*@
+									<select id="selectbed" asp-for="SEX" class="select2_single form-control col-md-7 col-xs-12">
+										<option>男</option>
+										<option>女</option>
+									</select>
+								</div>
+								<span asp-validation-for="SEX" class="text-danger"></span>
+							</div>
+
+
+							<div class="form-group">
+								<label asp-for="CARDID" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<span class="required">*</span>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="CARDID" class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="CARDID" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="AGE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<span class="required">*</span>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="AGE" class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="AGE" class="text-danger"></span>
+							</div>
+
+
+							<div class="form-group">
+								<label asp-for="CONTACT" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<span class="required">*</span>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="CONTACT" class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="CONTACT" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label asp-for="TEL" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<span class="required">*</span>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="TEL" class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="TEL" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="DIAGNOSIS" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="DIAGNOSIS" class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="DIAGNOSIS" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="HISTORY" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="HISTORY" class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="HISTORY" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="NURSE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									@*<input asp-for="NURSE" type="radio" class="form-control col-md-7 col-xs-12" />*@
+
+									<select asp-for="NURSE" asp-items="@ViewBag.CustomerList" class="select2_single form-control">
+										<option>能力完好</option>
+										<option>轻度护理</option>
+										<option>中度护理</option>
+										<option>重度护理</option>
+										<option>特级护理</option>
+									</select>
+								</div>
+								<span asp-validation-for="NURSE" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="TURN" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+
+									<select id="selectturn" asp-for="TURN" onchange="selectturnchanged()" class="select2_single form-control">
+										<option>无翻身护理计划</option>
+										<option>按照间隔时间翻身护理</option>
+										<option>按照固定计划翻身护理</option>
+									</select>
+								</div>
+								<span asp-validation-for="TURN" class="text-danger"></span>
+							</div>
+
+							<div id="div_truntime" hidden class="form-group">
+								<label class="control-label col-md-1 col-sm-3 col-xs-12">护理间隔</label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+
+									@*<input asp-for="TURN" class="form-control col-md-7 col-xs-12" />*@
+
+									<select asp-for="TIMESPAN" class="select2_single form-control">
+										<option>30</option>
+										<option>60</option>
+										<option>120</option>
+										<option>180</option>
+										<option>240</option>
+										<option>320</option>
+									</select>
+								</div>
+								<span asp-validation-for="TIMESPAN" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="INDATE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="INDATE" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="INDATE" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="OUTDATE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<input asp-for="OUTDATE" readonly class="form-control col-md-7 col-xs-12" />
+								</div>
+								<span asp-validation-for="OUTDATE" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+
+						<label class="control-label col-md-4 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+
+							<input type="submit" value="保存" class="btn btn-primary" style="width:150px" />
+
+							<button asp-action="Index" class="btn btn-default submit" style="width:150px">取消</button>
+						</div>
+
+						<span class="text-danger"></span>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$(".myFileUpload").change(function () {
+			var arrs = $(this).val().split('\\');
+			var filename = arrs[arrs.length - 1];
+			$(".show").html(filename);
+		});
+	});
+
+
+	function change() {
+		var pic = document.getElementById("preview"),
+			file = document.getElementById("f");
+
+		//得到后缀名
+		var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
+
+		// gif在IE浏览器暂时无法显示
+		if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
+			alert("图片的格式必须为png或者jpg或者jpeg格式！");
+			return;
+		}
+
+		var isIE = navigator.userAgent.match(/MSIE/) != null,
+			isIE6 = navigator.userAgent.match(/MSIE 6.0/) != null;
+
+		if (isIE) {
+			file.select();
+
+			var reallocalpath = document.selection.createRange().text;
+
+			// IE6浏览器设置img的src为本地路径可以直接显示图片
+			if (isIE6) {
+				pic.src = reallocalpath;
+			} else {
+				// 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+				pic.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+				// 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+				pic.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+			}
+		} else {
+			html5Reader(file);
+		}
+	}
+
+	function html5Reader(file) {
+		var file = file.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function (e) {
+			var pic = document.getElementById("preview");
+			pic.src = this.result;
+
+			console.log(this.result);
+
+			var inputimage = document.getElementById("imageinput");
+
+			inputimage.value = this.result;
+
+			//var _file = dataURLtoBlob(this.result); // c就是base64字符串
+
+			//console.log(_file)
+		}
+	}
+
+	$(function () {
+
+		$("#up").change(function () {
+
+			var file = this.files[0];
+			if (undefined == file) {
+				return;
+			}
+
+			r = new FileReader();
+
+			r.readAsDataURL(file);
+
+			r.onload = function (e) {
+
+				var base64 = e.target.result;
+
+				var _file = dataURLtoBlob(base64); // c就是base64字符串
+
+				console.log(base64)
+
+			}
+
+		});
+
+
+
+	});
+
+
+	function selectturnchanged() {
+
+		var find = document.getElementById("selectturn").value;
+
+		if (find == "按照间隔时间翻身护理") {
+
+			$("#div_truntime").show();
+		}
+		else {
+
+			$("#div_truntime").hide();
+		}
+
+	}
+</script>
+
+

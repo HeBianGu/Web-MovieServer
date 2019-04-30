@@ -1,0 +1,113 @@
+﻿@{
+	ViewData["Title"] = "History";
+}
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_content" style="color:#666666">
+				<div class="right col-md-12 col-sm-12 col-xs-12">
+					<form class="form-horizontal form-label-left">
+						<div class="row">
+
+							<label class="control-label col-md-1 col-sm-12 col-xs-12">用户信息</label>
+
+							<div class="col-md-3 col-sm-12 col-xs-12 ">
+								@*<label class="control-label">@Model.Item1.Customer.NAME</label>*@
+								<select id="selectbed" asp-items="@ViewBag.Monitors"  class="select2_single form-control col-md-1">
+									@*<option>-全部-</option>*@
+								</select>
+							</div>
+
+							<label class="control-label col-md-1 col-sm-12 col-xs-12">查询日期</label>
+							<div class="col-md-2 col-sm-12 col-xs-12 ">
+
+								<fieldset>
+									<div class="control-group">
+										<div class="controls">
+											<div class="col-md-11 xdisplay_inputx form-group has-feedback">
+												<input class="form-control has-feedback-left" id="single_cal4" aria-describedby="inputSuccess2Status4" type="text" placeholder="请选择查询时间">
+												<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+												<span class="sr-only" id="inputSuccess2Status4">(success)</span>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+							</div> 
+
+
+							<div class="col-md-1 col-sm-6 col-xs-12">
+								<input type="button" value="查询记录" onclick="RefreshHistoryData()" class="btn btn-primary" style="width:150px" />
+							</div>
+						</div>
+
+						<div class="form-group" style="border-top:1px solid #337AB7;margin-top:10px"></div> 
+
+						<div id="div-part1" class="row">
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	function RefreshHistoryData() {
+
+		var bed = document.getElementById("selectbed").value;  
+		var date = document.getElementById("single_cal4").value; 
+
+		var message = document.getElementById("header-message");
+
+		if (message != null) {
+			message.innerHTML = "正在加载，请稍后";
+		}
+
+		$.ajax({
+
+			url: 'RefreshHistoryData',
+
+			data: { id: bed, date: date},
+
+			type: "POST",
+
+			//dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				$("#div-part1").html(data);
+
+				console.log("刷新..");
+
+				//var echartBar = document.getElementById('main');
+
+				//console.log(echartBar); 
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+			}
+		});
+	}
+
+
+	window.onload = function () {
+
+		RefreshHistoryData()
+
+	}
+
+						//倒计时执行
+						//setTimeout("RefreshAnalytical();", 1000);
+
+</script>
+
+
+

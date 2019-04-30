@@ -1,0 +1,781 @@
+﻿@model Dms.Product.Respository.Model.MonitorViewModel
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		@*<div class="x_panel">*@
+
+		<label id="lable_monitorID" class="control-label" hidden>@Model.ID</label>
+
+		<div class="x_content" style="color:#666666">
+
+			<div class="center col-md-2 col-sm-12 col-xs-12" style="width: 130px;height:150px;text-align:center;">
+				<img class="img-responsive" alt="" src="@Html.DisplayFor(model=>model.Customer.IMAGE)">
+			</div>
+
+
+			<div class="right col-md-10 col-sm-12 col-xs-12">
+				<div class="form-horizontal form-label-left">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="clearfix">
+						<label asp-for="Customer.NAME" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.NAME</h6>
+						</div>
+
+						<label asp-for="Customer.SEX" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.SEX</h6>
+						</div>
+						<label asp-for="Customer.AGE" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+						<div class="col-md-2 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.AGE</h6>
+						</div>
+						<label asp-for="Customer.CARDID" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.CARDID</h6>
+						</div>
+					</div>
+
+					<div class="clearfix">
+						<label asp-for="Bed.CODE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6>@Model.Bed.CODE</h6>
+						</div>
+
+						<label asp-for="Bed.MATID" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6 id="lable_matcode">@Model.Bed.MATID</h6>
+						</div>
+						<label asp-for="Customer.HISTORY" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+						<div class="col-md-2 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.HISTORY</h6>
+						</div>
+						<label asp-for="Customer.DIAGNOSIS" class="control-label col-md-1 col-sm-12 col-xs-12"></label>
+						<div class="col-md-2 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.DIAGNOSIS</h6>
+						</div>
+					</div>
+
+
+					<div class="clearfix">
+
+						@*创建时间*@
+						<label class="control-label col-md-1 col-sm-3 col-xs-12">使用日期</label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6>@Model.MonitorDetial.Monitor.CDATE.Substring(0, 10)</h6>
+						</div>
+
+						@*护理等级*@
+						<label asp-for="Customer.NURSE" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.NURSE</h6>
+						</div>
+
+						@*翻身计划*@
+						<label asp-for="Customer.TURN" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+						<div class="col-md-2 col-sm-12 col-xs-12 ">
+							<h6>@Model.Customer.TURN</h6>
+						</div>
+
+					</div>
+
+					@*监护时间*@
+					<div class="clearfix">
+
+						@*心率*@
+						<label class="control-label col-md-1 col-sm-3 col-xs-12">心率监测</label>
+
+						<div class="col-md-1 col-sm-12 col-xs-12 ">
+							<h6><strong>@Model.MonitorDetial.HeartRange.MinValue</strong>  -<strong> @Model.MonitorDetial.HeartRange.MaxVlalue</strong> </h6>
+						</div>
+
+						<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间1</label>
+						<div class="col-md-2 col-sm-12 col-xs-12 ">
+							<h6>
+								<strong>@Model.MonitorDetial.TimeRange1.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange1.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange1.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange1.MoveTime</strong>  秒
+							</h6>
+						</div>
+
+
+						<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间2</label>
+						<div class="col-md-2 col-sm-12 col-xs-12 ">
+							<h6>
+								<strong>@Model.MonitorDetial.TimeRange2.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange2.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange2.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange2.MoveTime</strong>  秒
+							</h6>
+						</div>
+
+						<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间3</label>
+						<div class="col-md-3 col-sm-12 col-xs-12 ">
+							<h6>
+								<strong>@Model.MonitorDetial.TimeRange3.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange3.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange3.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange3.MoveTime</strong>  秒
+							</h6>
+						</div>
+					</div>
+
+					<div class="clearfix">
+
+						@*呼吸*@
+						<label class="control-label col-md-1 col-sm-3 col-xs-12">呼吸监测</label>
+
+						<div class="col-md-1 col-sm-12 col-xs-12">
+							<h6><strong>@Model.MonitorDetial.BreathRange.MinValue</strong> - <strong>@Model.MonitorDetial.BreathRange.MaxVlalue</strong> </h6>
+						</div>
+
+						<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间4</label>
+						<div class="col-md-2 col-sm-12 col-xs-12">
+							<h6>
+								<strong>@Model.MonitorDetial.TimeRange4.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange4.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange4.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange4.MoveTime</strong>  秒
+							</h6>
+						</div>
+						<label class="control-label col-md-1 col-sm-12 col-xs-12">监护时间5</label>
+						<div class="col-md-2 col-sm-12 col-xs-12">
+							<h6>
+								<strong>@Model.MonitorDetial.TimeRange5.MinValue</strong>  - <strong>
+									@Model.MonitorDetial.TimeRange5.MaxVlalue
+								</strong>
+								离床 <strong>@Model.MonitorDetial.TimeRange5.LeaveBedTime</strong>  分钟/体动 <strong>@Model.MonitorDetial.TimeRange5.MoveTime</strong>  秒
+							</h6>
+						</div> 
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row" >
+			<div class="row col-md-12 col-sm-12 col-xs-12 col-md-offset-1"  style="float:right;color:black" >
+				<h5 id="label_realdata" class="col-md-12 col-sm-12 col-xs-12">数据加载中,请等待...</h5>
+			</div>
+		</div>
+
+		@*style="padding: 15px; margin: 0px;border-radius:5px; border: 1px solid rgb(204, 204, 204); box-shadow: rgb(189, 189, 189) 0px 0px 10px; background: #fff;"*@
+		<div class="x_content">
+
+			<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+			<div id="div_chart" style="width:100%;height:580px;text-align:center;"><span style="margin:0 auto;line-height:50">数据加载中,请等待...</span></div>
+
+		</div>
+		@*</div>*@
+
+
+	</div>
+</div>
+
+<script src="~/vendors/echarts/dist/echarts.min.js"></script>
+<script src="~/vendors/echarts/map/js/world.js"></script>
+
+<script>
+
+	var echartBar;
+
+	function InitChart() {
+		var theme = {
+			color: [
+				'#E51C23', '#3F51B5', '#BDC3C7', '#3498DB',
+				'#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
+			],
+
+			title: {
+				itemGap: 8,
+				textStyle: {
+					fontWeight: 'normal',
+					color: '#408829'
+				}
+			},
+
+			dataRange: {
+				color: ['#1f610a', '#97b58d']
+			},
+
+			toolbox: {
+				color: ['#408829', '#408829', '#408829', '#408829']
+			},
+
+			tooltip: {
+				backgroundColor: 'rgba(0,0,0,0.5)',
+				axisPointer: {
+					type: 'line',
+					lineStyle: {
+						color: '#408829',
+						type: 'dashed'
+					},
+					crossStyle: {
+						color: '#408829'
+					},
+					shadowStyle: {
+						color: 'rgba(200,200,200,0.3)'
+					}
+				}
+			},
+
+			dataZoom: {
+				dataBackgroundColor: '#eee',
+				fillerColor: 'rgba(64,136,41,0.2)',
+				handleColor: '#408829'
+			},
+			grid: {
+				borderWidth: 0
+			},
+
+			categoryAxis: {
+				axisLine: {
+					lineStyle: {
+						color: '#408829'
+					}
+				},
+				splitLine: {
+					lineStyle: {
+						color: ['#eee']
+					}
+				}
+			},
+
+			valueAxis: {
+				axisLine: {
+					lineStyle: {
+						color: '#408829'
+					}
+				},
+				splitArea: {
+					show: true,
+					areaStyle: {
+						color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
+					}
+				},
+				splitLine: {
+					lineStyle: {
+						color: ['#eee']
+					}
+				}
+			},
+			timeline: {
+				lineStyle: {
+					color: '#408829'
+				},
+				controlStyle: {
+					normal: { color: '#408829' },
+					emphasis: { color: '#408829' }
+				}
+			},
+
+			k: {
+				itemStyle: {
+					normal: {
+						color: '#68a54a',
+						color0: '#a9cba2',
+						lineStyle: {
+							width: 1,
+							color: '#408829',
+							color0: '#86b379'
+						}
+					}
+				}
+			},
+			map: {
+				itemStyle: {
+					normal: {
+						areaStyle: {
+							color: '#ddd'
+						},
+						label: {
+							textStyle: {
+								color: '#c12e34'
+							}
+						}
+					},
+					emphasis: {
+						areaStyle: {
+							color: '#99d2dd'
+						},
+						label: {
+							textStyle: {
+								color: '#c12e34'
+							}
+						}
+					}
+				}
+			},
+			force: {
+				itemStyle: {
+					normal: {
+						linkStyle: {
+							strokeColor: '#408829'
+						}
+					}
+				}
+			},
+			chord: {
+				padding: 4,
+				itemStyle: {
+					normal: {
+						lineStyle: {
+							width: 1,
+							color: 'rgba(128, 128, 128, 0.5)'
+						},
+						chordStyle: {
+							lineStyle: {
+								width: 1,
+								color: 'rgba(128, 128, 128, 0.5)'
+							}
+						}
+					},
+					emphasis: {
+						lineStyle: {
+							width: 1,
+							color: 'rgba(128, 128, 128, 0.5)'
+						},
+						chordStyle: {
+							lineStyle: {
+								width: 1,
+								color: 'rgba(128, 128, 128, 0.5)'
+							}
+						}
+					}
+				}
+			},
+			gauge: {
+				startAngle: 225,
+				endAngle: -45,
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
+						width: 8
+					}
+				},
+				axisTick: {
+					splitNumber: 10,
+					length: 12,
+					lineStyle: {
+						color: 'auto'
+					}
+				},
+				axisLabel: {
+					textStyle: {
+						color: 'auto'
+					}
+				},
+				splitLine: {
+					length: 18,
+					lineStyle: {
+						color: 'auto'
+					}
+				},
+				pointer: {
+					length: '90%',
+					color: 'auto'
+				},
+				title: {
+					textStyle: {
+						color: '#333'
+					}
+				},
+				detail: {
+					textStyle: {
+						color: 'auto'
+					}
+				}
+			},
+			textStyle: {
+				fontFamily: 'Arial, Verdana, sans-serif'
+			}
+		};
+
+		echartBar = echarts.init(document.getElementById('div_chart'), theme);
+
+		echartBar.setOption({
+			title: {
+				text: '心率、呼吸实时信息曲线图',
+				//subtext: '心率、呼吸实时信息曲线图'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['心率', '呼吸']
+				//data: data.legend.data
+			},
+			toolbox: {
+				show: false
+			},
+			calculable: false,
+			xAxis: [{
+				type: 'category',
+				data: ['1?', '2?', '3?', '4?', '5?', '6?', '7?', '8?', '9?', '10?', '11?', '12?']
+				//data: data.xAxis.data
+			}],
+			yAxis: [{
+				type: 'value'
+			}],
+			grid: {
+				left: '2%',
+				right: '5%',
+				bottom: '1%',
+				top: '13%',
+				containLabel: true
+			},
+			//series: data.series
+			series: [{
+				name: '心率',
+				type: 'line',
+				//data: [90.0, 40.9, 70.0, 83.2, 75.6, 76.7, 135.6, 162.2, 132.6, 120.0, 60.4, 63.3],
+				//data: data.series.series1,
+				markPoint: {
+					data: [{
+						type: 'max',
+						name: '最大值'
+					}, {
+						type: 'min',
+						name: '最小值'
+					}, {
+						name: '心率',
+						value: 2.3,
+						xAxis: 19,
+						yAxis: 60
+					}]
+				},
+				markLine: {
+					itemStyle: {
+						normal: {
+							label: {
+								show: true,
+								formatter: function (params) {
+									return params.value + params.name
+								}
+							},
+							lineStyle: {
+								//type: 'dotted',
+								color: '#E51C23'
+								// type: 'solid'
+								//'dotted'虚线 'solid'实线
+							}
+						}
+					},
+					data: [{
+						type: 'average',
+						name: '(平均值)'
+					},
+					{
+						yAxis: 100,
+						name: '(最大值)'
+					}
+						,
+					{
+						yAxis: 60,
+						name: '(最小值)'
+					}
+					]
+				}
+			}, {
+				name: '呼吸',
+				type: 'line',
+				//data: [92.6, 85.9, 119.0, 126.4, 128.7, 70.7, 175.6, 182.2, 148.7, 118.8, 60.0, 52.3],
+				//data: data.series.series2,
+				markPoint: {
+					data: [{
+						type: 'max',
+						name: '最大值'
+					}, {
+						type: 'min',
+						name: '最小值'
+					}]
+				},
+				markLine: {
+					data: [{
+						type: 'average',
+						name: '平局值'
+					}]
+				},
+				markPoint: {
+					data: [
+						//	{
+						//	name: '呼吸',
+						//	value: 112.2,
+						//	xAxis: 19,
+						//	yAxis: 110,
+						//},
+						{
+							type: 'max',
+							name: '最大值'
+						}, {
+							type: 'min',
+							name: '最小值'
+						}]
+				},
+				markLine: {
+					itemStyle: {
+						normal: {
+							label: {
+								show: true,
+								formatter: function (params) {
+									return params.value + params.name
+								}
+							},
+							lineStyle: {
+								//type: 'dotted',
+								color: '#3F51B5'
+								// type: 'solid'
+								//'dotted'虚线 'solid'实线
+							}
+						}
+					},
+					data: [{
+						type: 'average',
+						name: '(平局值)'
+					},
+					{
+						yAxis: 20,
+						name: '(最大值)'
+					}
+						,
+					{
+						yAxis: 12,
+						name: '(最小值)'
+					}
+					]
+				}
+			}]
+		});  
+	}
+
+
+	InitChart();
+
+	function RefreshRealLine() {
+
+		var label = document.getElementById("lable_monitorID");
+		var monitorID = label.innerText.trim(); 
+
+		$.ajax({
+
+			url: 'RefreshRealLine',
+
+			data: { monitorID: monitorID },
+
+			type: "POST",
+
+			dataType: "json",
+
+			async: false,
+
+			success: function (data) {
+
+				////没有数据时提示
+				//if (data.hasOwnProperty("d")) {
+
+				//	alert(data.message);
+				//	return;
+				//}
+
+				//alert("eretet");
+
+
+				document.getElementById('label_realdata').innerHTML = data.m.message
+
+				console.log(data.m.message);
+
+				console.log("刷新..");
+
+				echartBar.resize();
+
+				echartBar.setOption({
+					//title: {
+					//	text: '数据统计表',
+					//	subtext: '到截止日期累计数据统计表'
+					//},
+					tooltip: {
+						trigger: 'axis'
+					},
+					//legend: {
+					//	//data: ['sales', 'purchases']
+					//	data: data.legend.data
+					//},
+					toolbox: {
+						show: false
+					},
+					calculable: false,
+					xAxis: [{
+						type: 'category',
+						//data: ['1?', '2?', '3?', '4?', '5?', '6?', '7?', '8?', '9?', '10?', '11?', '12?']
+						data: data.d.data.xAxis.data
+					}],
+					//yAxis: [
+					//	{
+					//	type: 'value'
+					//	}
+					//],
+					yAxis: [
+						{
+							'type': 'value',
+							//'name': '单位（次/分钟）',
+							'max': 120,
+							'min': 0
+						}
+						//,
+						//{
+						//	'type': 'value',
+						//	'name': '呼吸（亿元）'
+						//}
+					],
+					//series: data.series
+
+					series: [{
+						name: '心率',
+						type: 'line',
+						data: data.d.data.series[0].data,
+						markPoint: {
+							data: [{
+								type: 'max',
+								name: '最大值'
+							}, {
+								type: 'min',
+								name: '最小值'
+							},
+								//{
+								//	name: '心率',
+								//	value: 2.3,
+								//	xAxis: 19,
+								//	yAxis: 60
+								//	}
+							]
+						},
+						markLine: {
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: function (params) {
+											return params.value + params.name
+										}
+									},
+									lineStyle: {
+										//type: 'dotted',
+										color: '#E51C23'
+										// type: 'solid'
+										//'dotted'虚线 'solid'实线
+									}
+								}
+							},
+							data: [{
+								type: 'average',
+								name: '(平局值)'
+							},
+							{
+								yAxis: 100,
+								name: '(心率最大值)'
+							}
+								,
+							{
+								yAxis: 60,
+								name: '(心率最小值)'
+							}
+							]
+						}
+					}, {
+						name: '呼吸',
+						type: 'line',
+
+						data: data.d.data.series[1].data,
+
+						markPoint: {
+							data: [{
+								type: 'max',
+								name: '最大值'
+							}, {
+								type: 'min',
+								name: '最小值'
+							}]
+						},
+						markLine: {
+							data: [{
+								type: 'average',
+								name: '平局值'
+							}]
+						},
+						markPoint: {
+							data: [
+								//	{
+								//	name: '呼吸',
+								//	value: 112.2,
+								//	xAxis: 19,
+								//	yAxis: 110,
+								//},
+								{
+									type: 'max',
+									name: '最大值'
+								}, {
+									type: 'min',
+									name: '最小值'
+								}]
+						},
+						markLine: {
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: function (params) {
+											return params.value + params.name
+										}
+									},
+									lineStyle: {
+										//type: 'dotted',
+										color: '#3F51B5'
+										// type: 'solid'
+										//'dotted'虚线 'solid'实线
+									}
+								}
+							},
+							data: [{
+								type: 'average',
+								name: '(呼吸平局值)'
+							},
+							{
+								yAxis: 20,
+								name: '(呼吸最大值)'
+							}
+								,
+							{
+								yAxis: 12,
+								name: '(呼吸最小值)'
+							}
+							]
+						}
+					}]
+				});
+
+				echartBar.hideLoading();
+			},
+
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+				alert("获取数据异常，请检查！");
+
+			}
+		});
+
+	}
+
+	setTimeout("RefreshRealLine()",10);
+
+	var refreshdata;
+
+	clearInterval(refreshdata);
+
+	refreshdata = setInterval(RefreshRealLine, 2000); 
+
+
+
+</script>
+

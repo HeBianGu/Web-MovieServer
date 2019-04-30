@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Tuple<Dms.Product.Base.Model.ehc_dv_user,string>>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<a asp-action="Create" class="btn btn-primary">新增用户</a>
+
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				@*<p>
+					<a asp-action="Create" class="btn btn-primary">新增用户</a>
+				</p>*@
+
+				<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>
+								序号
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Item1.NAME)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Item1.PASSWORD)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Item1.USERNAME)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Item1.ROLEID)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Item1.CDATE)
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@for (int i = 1; i <= Model.Count(); i++)
+						{
+							var item = Model.ToArray()[i - 1];
+
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => i)
+								</td>
+								<td>
+									<a asp-action="Details" asp-route-id="@item.Item1.ID" class="btn btn-link  btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg">@Html.DisplayFor(modelItem => item.Item1.NAME)</a>
+								</td>
+								<td>
+									@*@Html.DisplayFor(modelItem => item.Item1.PASSWORD)*@
+									******
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Item1.USERNAME)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Item2)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Item1.CDATE)
+								</td>
+								<td>
+									<form asp-action="Delete">
+										<a asp-action="Edit" asp-route-id="@item.Item1.ID" class="btn btn-primary btn-xs" ><i class="fa fa-folder"></i> 编辑 </a>
+										<a asp-action="Details" asp-route-id="@item.Item1.ID" class="btn btn-info btn-xs "  ><i class="fa fa-pencil"></i> 详情 </a>
+										<button type="submit" asp-action="Delete" asp-route-id="@item.Item1.ID" class="btn btn-danger btn-xs" ><i class="fa fa-trash-o"></i> 删除 </button>
+									</form>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
