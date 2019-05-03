@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Dms.Product.Base.Model.mbc_dc_case>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<a asp-action="Create" class="btn btn-primary">新增案例</a>
+			</div>
+			<div class="x_content">
+
+				<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Name)
+							</th>
+
+							<th>
+								@Html.DisplayNameFor(model => model.BaseUrl)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.CDATE)
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.Name)
+								</td>
+
+								<td>
+									@Html.DisplayFor(modelItem => item.BaseUrl)
+								</td> 
+								<td>
+									@Html.DisplayFor(modelItem => item.CDATE)
+								</td>
+								<td>
+									<a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+									<a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+									<a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+

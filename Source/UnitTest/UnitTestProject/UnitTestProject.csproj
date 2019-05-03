@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\General\Dms.Product.General.NetWorkDataBase\Dms.Product.General.NetWorkDataBase.csproj" />
     <ProjectReference Include="..\..\General\Dms.Product.General.Tool\Dms.Product.General.Tool.csproj" />
+    <ProjectReference Include="..\..\General\HeBianGu.Product.General.FFmpegService\HeBianGu.Product.General.FFmpegService.csproj" />
     <ProjectReference Include="..\..\Respository\Dms.Product.Respository.Model\Dms.Product.Respository.Model.csproj" />
   </ItemGroup>
 

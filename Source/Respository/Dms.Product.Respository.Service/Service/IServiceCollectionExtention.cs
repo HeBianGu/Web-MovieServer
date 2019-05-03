@@ -26,6 +26,22 @@ namespace Dms.Product.Respository.Service
 
             services.AddScoped<IMovieRespository, MovieRespository>();
 
+            services.AddScoped<ICaseRespository, CaseRespository>();
+
+            services.AddScoped<IExtendRespository, ExtendRespository>();
+
+            services.AddScoped<ITagRespository, TagRespository>();
+
+            services.AddScoped<IFromRespository, FromRespository>();
+
+            services.AddScoped<IAreaRespository, AreaRespository>();
+
+            services.AddScoped<IVipRespository, VipRespository>();
+
+            services.AddScoped<IMediaRespository, MediaRespository>();
+
+            services.AddScoped<IArticulationRespository, ArticulationRespository>();
+
         }
 
       

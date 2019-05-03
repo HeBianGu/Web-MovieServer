@@ -1,109 +1,236 @@
-﻿@model Dms.Product.Base.Model.mbc_dv_movie
+﻿@model Tuple<Dms.Product.Base.Model.mbc_dv_movie, List<Dms.Product.Base.Model.mbc_dv_movieimage>>
 
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					视频详情
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<p>
+					<a asp-action="Index" class="btn btn-link">返回列表</a>
+				</p>
+				<form asp-action="Edit" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
-<div>
-    <h4>mbc_dv_movie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MediaType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MediaType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TagTypes)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TagTypes)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AreaType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AreaType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ExtendType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ExtendType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ArticulationType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ArticulationType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VipType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VipType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FromType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FromType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderNum)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OrderNum)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PlayCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PlayCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Score)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Score)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CDATE)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CDATE)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UDATE)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UDATE)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ISENBLED)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ISENBLED)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group" hidden>
+						<label asp-for="@Model.Item1.ID" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input id="movie-id" asp-for="@Model.Item1.ID" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.ID" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Name" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Name" class="form-control col-md-7 col-xs-12" />
+						</div>
+
+						<span asp-validation-for="@Model.Item1.Name" class="text-danger"></span>
+
+					</div>
+
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Image" class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+						<div class="col-md-3 col-sm-5 col-xs-12">
+							<img src="@Html.DisplayFor(model => @Model.Item1.Image)" class="col-md-3 col-sm-5 col-xs-12" style="margin: 0 auto;vertical-align: middle;display: inline-block;width:1200px" alt="" />
+						</div>
+					</div>
+
+
+					@for (int i = 1; i <= Model.Item2.Count(); i++)
+					{
+						var item = Model.Item2.ToArray()[i - 1];
+
+						<div class="form-group">
+							<label class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+							<div class="col-md-3 col-sm-5 col-xs-12">
+								<img src="@Html.DisplayFor(model => item.Image)" class="col-md-3 col-sm-5 col-xs-12" style="margin: 0 auto;vertical-align: middle;display: inline-block;width:1200px" alt="" />
+							</div>
+						</div>
+					};
+
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Url" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Url" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Url" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="@Model.Item1.MediaType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.MediaType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.MediaType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.TagTypes" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.TagTypes" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.TagTypes" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.AreaType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.AreaType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.AreaType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.ExtendType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.ExtendType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.ExtendType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.ArticulationType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.ArticulationType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.ArticulationType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Size" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input value="@@Model.Item1.Size.ByteConversionGBMBKB()" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Size" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.VipType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.VipType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.VipType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.FromType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.FromType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.FromType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.OrderNum" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.OrderNum" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.OrderNum" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.PlayCount" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.PlayCount" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.PlayCount" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Score" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Score" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Score" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="@Model.Item1.CaseType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.CaseType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.CaseType" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="@Model.Item1.Duration" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Duration" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Duration" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="@Model.Item1.Bitrate" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Bitrate" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Bitrate" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="@Model.Item1.MediaCode" readonly class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.MediaCode" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.MediaCode" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="@Model.Item1.VedioType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.VedioType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.VedioType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Resoluction" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Resoluction" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Resoluction" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Aspect" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Aspect" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Aspect" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.Rate" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.Rate" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.Rate" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="@Model.Item1.CDATE" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.CDATE" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.CDATE" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="@Model.Item1.UDATE" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="@Model.Item1.UDATE" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="@Model.Item1.UDATE" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+
+						<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+
+							<input type="submit" value="保存" class="btn btn-primary" style="width:150px" />
+
+							<button asp-action="Index" class="btn btn-default submit" style="width:150px">取消</button>
+						</div>
+
+						<span class="text-danger"></span>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

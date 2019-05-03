@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using Dms.Product.Base.Model;
 using Dms.Product.Respository.Model;
 using System.Reflection;
+using HeBianGu.Product.General.FFmpegService;
 
 namespace UnitTestProject
 {
@@ -530,9 +531,53 @@ namespace UnitTestProject
             string ss = string.Empty;
 
         }
+        [TestMethod]
+        public void TestMethod666()
+        {
 
+            Action<int> action = l =>
+              {
 
+                  Debug.WriteLine("ShootCut:" + l);
+
+              };
+            FFmpegService.Instance.ShootCut(@"E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280.rmvb", @"E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280_shootcut.png", "00:01:00");
+
+            string ss = string.Empty;
+
+            while(true)
+            {
+                
+            }
+
+        }
+
+        [TestMethod]
+        public void TestMethod777()
+        {
+            Action<int, List<string>> action = (l,k) =>
+            {
+
+                Debug.WriteLine("ShootCutBat:" + l);
+
+                foreach (var item in k)
+                {
+                    Debug.WriteLine(item);
+                }
+            };
+
+            FFmpegService.Instance.ShootCutBat(@"E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280.rmvb", @"E:\Medias\Movie\飘花电影piaohua.com谍影重重2高清1280_shootcut");
+
+            string ss = string.Empty;
+
+            while (true)
+            {
+
+            }
+
+        }
         
+
     }
 
     [Description("唯一标识")]

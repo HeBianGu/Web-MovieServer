@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="~/images/tty.ico" type="image/ico" />
 
-	<title>河边骨资源管理后台</title>
+	<title>河边骨资源管理平台</title>
 
 	<!-- Bootstrap -->
 	<link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -91,15 +91,17 @@
 							</ul>
 						</div>
 						<div class="menu_section">
-							<h3>媒体管理</h3>
+							<h3>基础管理</h3>
 							<ul class="nav side-menu">
 								<li>
 									<a><i class="fa fa-home"></i> 视频管理 <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a asp-controller="Movie" asp-action="Index"> 视频管理</a></li>
-										<li><a asp-controller="Monitor" asp-action="Monitor"> 类别管理</a></li>
-										<li><a asp-controller="Monitor" asp-action="Monitor"> 标签管理</a></li>
-										<li><a asp-controller="Monitor" asp-action="Monitor"> 格式管理</a></li>
+										<li><a asp-controller="Extend" asp-action="Index"> 类别管理</a></li>
+										<li><a asp-controller="Tag" asp-action="Index"> 标签管理</a></li> 
+										<li><a asp-controller="From" asp-action="Index"> 来源管理</a></li>
+										<li><a asp-controller="Area" asp-action="Index"> 区域管理</a></li>
+										<li><a asp-controller="Articulation" asp-action="Index"> 清晰度管理</a></li> 
 									</ul>
 								</li>
 
@@ -141,9 +143,15 @@
 								<h3>系统管理</h3>
 								<ul class="nav side-menu">
 									<li>
+										<a><i class="fa fa-user"></i> 案例管理<span class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a asp-action="Index" asp-controller="Case">案例管理</a></li>
+										</ul>
+									</li>
+									<li>
 										<a><i class="fa fa-user"></i> 会员管理<span class="fa fa-chevron-down"></span></a>
 										<ul class="nav child_menu">
-											<li><a asp-action="Index" asp-controller="Customer">会员管理</a></li>
+											<li><a asp-action="Index" asp-controller="Vip">会员管理</a></li>
 										</ul>
 									</li>
 									<li>

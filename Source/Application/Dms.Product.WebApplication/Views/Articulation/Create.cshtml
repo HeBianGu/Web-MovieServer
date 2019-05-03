@@ -1,0 +1,86 @@
+﻿@model Dms.Product.Base.Model.mbc_db_articulationtype
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					新增扩展类型
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<p>
+					<a asp-action="Index" class="btn btn-link">返回列表</a>
+				</p>
+				<form asp-action="Create" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group">
+						<label asp-for="Name" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Name" class="form-control col-md-7 col-xs-12" />
+						</div>
+
+						<span asp-validation-for="Name" class="text-danger"></span>
+
+					</div>
+					<div class="form-group">
+						<label asp-for="Value" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Value" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Value" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Text" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Text" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Text" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="CDATE" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="CDATE" value="@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="CDATE" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="UDATE" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="UDATE" value="@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="UDATE" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+
+						<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+
+							<input type="submit" value="新增" class="btn btn-primary" style="width:150px" />
+
+							<button asp-action="Index" class="btn btn-default submit" style="width:150px">取消</button>
+						</div>
+
+						<span class="text-danger"></span>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

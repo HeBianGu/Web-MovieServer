@@ -213,6 +213,13 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Content Update="Views\Case\Index.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

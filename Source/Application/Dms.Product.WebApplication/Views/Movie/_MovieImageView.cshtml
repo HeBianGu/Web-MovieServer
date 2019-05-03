@@ -1,0 +1,17 @@
+﻿@model IEnumerable<string>
+
+<div class="form-group">
+	<div class="col-md-5 col-sm-5 col-xs-12">
+		<b>生成预览图</b>
+	</div>
+</div>
+@for (int i = 1; i <= Model.Count(); i++)
+{
+	var item = Model.ToArray()[i - 1];
+
+	<div class="form-group"> 
+		<div class="col-md-5 col-sm-5 col-xs-12" style="background:red">
+			<img src="@Html.DisplayFor(model => item)"  style="margin: 0 auto;vertical-align: middle;display: inline-block;height:200px;width:200px" alt="" />
+		</div>
+	</div>
+};

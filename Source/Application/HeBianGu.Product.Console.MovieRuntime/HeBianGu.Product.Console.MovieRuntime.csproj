@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\General\Dms.Product.General.LocalDataBase\Dms.Product.General.LocalDataBase.csproj" />
+    <ProjectReference Include="..\..\General\HeBianGu.Product.General.FFmpegService\HeBianGu.Product.General.FFmpegService.csproj" />
+  </ItemGroup>
+
+</Project>

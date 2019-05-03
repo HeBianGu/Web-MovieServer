@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Base\Dms.Product.Base.Model\Dms.Product.Base.Model.csproj" />
     <ProjectReference Include="..\..\Domain\Dms.Prodoct.Domain.DataServce\Dms.Prodoct.Domain.DataServce.csproj" />
+    <ProjectReference Include="..\..\General\HeBianGu.Product.General.FFmpegService\HeBianGu.Product.General.FFmpegService.csproj" />
     <ProjectReference Include="..\Dms.Product.Respository.IService\Dms.Product.Respository.IService.csproj" />
     <ProjectReference Include="..\Dms.Product.Respository.Model\Dms.Product.Respository.Model.csproj" />
   </ItemGroup>

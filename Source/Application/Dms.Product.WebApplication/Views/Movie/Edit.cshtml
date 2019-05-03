@@ -1,102 +1,275 @@
 ﻿@model Dms.Product.Base.Model.mbc_dv_movie
 
 @{
-    ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
-<h4>mbc_dv_movie</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MediaType" class="control-label"></label>
-                <input asp-for="MediaType" class="form-control" />
-                <span asp-validation-for="MediaType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagTypes" class="control-label"></label>
-                <input asp-for="TagTypes" class="form-control" />
-                <span asp-validation-for="TagTypes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AreaType" class="control-label"></label>
-                <input asp-for="AreaType" class="form-control" />
-                <span asp-validation-for="AreaType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExtendType" class="control-label"></label>
-                <input asp-for="ExtendType" class="form-control" />
-                <span asp-validation-for="ExtendType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArticulationType" class="control-label"></label>
-                <input asp-for="ArticulationType" class="form-control" />
-                <span asp-validation-for="ArticulationType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VipType" class="control-label"></label>
-                <input asp-for="VipType" class="form-control" />
-                <span asp-validation-for="VipType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FromType" class="control-label"></label>
-                <input asp-for="FromType" class="form-control" />
-                <span asp-validation-for="FromType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderNum" class="control-label"></label>
-                <input asp-for="OrderNum" class="form-control" />
-                <span asp-validation-for="OrderNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlayCount" class="control-label"></label>
-                <input asp-for="PlayCount" class="form-control" />
-                <span asp-validation-for="PlayCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Score" class="control-label"></label>
-                <input asp-for="Score" class="form-control" />
-                <span asp-validation-for="Score" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CDATE" class="control-label"></label>
-                <input asp-for="CDATE" class="form-control" />
-                <span asp-validation-for="CDATE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UDATE" class="control-label"></label>
-                <input asp-for="UDATE" class="form-control" />
-                <span asp-validation-for="UDATE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ISENBLED" class="control-label"></label>
-                <input asp-for="ISENBLED" class="form-control" />
-                <span asp-validation-for="ISENBLED" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					编辑视频
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<p>
+					<a asp-action="Index" class="btn btn-link">返回列表</a>
+				</p>
+				<form asp-action="Edit" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group" hidden>
+						<label asp-for="ID" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input id="movie-id" asp-for="ID" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="ID" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input type="button" onclick="RefreshMovieImage()" value="生成预览图" class="btn btn-primary" style="width:150px" />
+						</div>
+					</div>
+					@*预览图*@
+					<div id="div-part" class="row">
+
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="Name" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Name" class="form-control col-md-7 col-xs-12" />
+						</div>
+
+						<span asp-validation-for="Name" class="text-danger"></span>
+
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Image" class="control-label col-md-3 col-sm-3 col-xs-12"></label> 
+						<div class="col-md-3 col-sm-5 col-xs-12">
+							<img src="@Html.DisplayFor(model => model.Image)"  class="col-md-3 col-sm-5 col-xs-12" style="margin: 0 auto;vertical-align: middle;display: inline-block;width:600px" alt="" /> 
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Url" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Url" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Url" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="MediaType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="MediaType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="MediaType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="TagTypes" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="TagTypes" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="TagTypes" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="AreaType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="AreaType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="AreaType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="ExtendType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="ExtendType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="ExtendType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="ArticulationType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="ArticulationType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="ArticulationType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Size" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input value="@Model.Size.ByteConversionGBMBKB()" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Size" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="VipType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="VipType" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="VipType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="FromType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="FromType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="FromType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="OrderNum" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="OrderNum" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="OrderNum" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="PlayCount" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="PlayCount" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="PlayCount" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Score" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Score" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Score" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="CaseType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="CaseType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="CaseType" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="Duration" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Duration" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Duration" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="Bitrate" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Bitrate" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Bitrate" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="MediaCode" readonly class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="MediaCode" class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="MediaCode" class="text-danger"></span>
+					</div> <div class="form-group">
+						<label asp-for="VedioType" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="VedioType" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="VedioType" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Resoluction" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Resoluction" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Resoluction" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Aspect" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Aspect" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Aspect" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Rate" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="Rate" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="Rate" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="CDATE" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="CDATE" readonly class="form-control col-md-7 col-xs-12" readonly />
+						</div>
+						<span asp-validation-for="CDATE" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="UDATE" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input asp-for="UDATE" readonly class="form-control col-md-7 col-xs-12" />
+						</div>
+						<span asp-validation-for="UDATE" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+
+						<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+
+						<div class="col-md-5 col-sm-5 col-xs-12">
+
+							<input type="submit" value="保存" class="btn btn-primary" style="width:150px" />
+
+							<button asp-action="Index" class="btn btn-default submit" style="width:150px">取消</button>
+						</div>
+
+						<span class="text-danger"></span>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script>
 
+		//function RefreshMovieImage() {
+
+
+		//	var find = document.getElementById("movie-id").value;
+
+
+		//	$.ajax({
+
+		//		url: 'RefreshMovieImage',
+
+		//		data: { id: find },
+
+		//		type: "POST",
+
+		//		//dataType: "json",
+
+		//		async: false,
+
+		//		success: function (data) {
+
+		//			$("#div-part").html(data);
+
+		//			console.log("刷新..");
+		//		},
+
+		//		error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+		//			alert("获取数据异常，请检查！");
+		//		}
+		//	});
+		//}
+
+		//window.onload = function () {
+		//	RefreshMovieImage()
+		//}
+
+</script>

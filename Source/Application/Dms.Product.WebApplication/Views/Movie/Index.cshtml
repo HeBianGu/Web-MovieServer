@@ -1,132 +1,114 @@
-﻿@model IEnumerable<Dms.Product.Base.Model.mbc_dv_movie>
-
-@{
-	ViewData["Title"] = "Index";
+﻿@{
+	ViewData["Title"] = "Details";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
-			<div class="x_title">
-				<a asp-action="Create" class="btn btn-primary">新增监控</a> 	<a asp-action="Monitor" asp-controller="Monitor" class="btn btn-primary">实时监控</a>
+			<div class="x_content" style="color:#666666">
+				<div class="right col-md-12 col-sm-12 col-xs-12">
+					<form class="form-horizontal form-label-left">
+						<div class="row">
 
-			</div>
-			<div class="x_content">
+							<label class="control-label col-md-1 col-sm-12 col-xs-12">案例信息</label>
 
-				<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.Name)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.MediaType)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.TagTypes)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.AreaType)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.ExtendType)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.ArticulationType)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Image)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.VipType)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.FromType)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.OrderNum)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.PlayCount)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Score)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.CDATE)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.UDATE)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.ISENBLED)
-							</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var item in Model)
-						{
-							<tr>
-								<td>
-									@Html.DisplayFor(modelItem => item.Name)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.MediaType)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.TagTypes)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.AreaType)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.ExtendType)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.ArticulationType)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.Image)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.VipType)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.FromType)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.OrderNum)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.PlayCount)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.Score)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.CDATE)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.UDATE)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.ISENBLED)
-								</td>
-								<td>
-									<a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-									<a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-									<a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
+							<div class="col-md-6 col-sm-12 col-xs-12 ">
+								<select id="selectcase" asp-items="@ViewBag.Cases" onchange="change1()" class="select2_single form-control col-md-1">
+									@*<option>-请选择用户数据-</option>*@
+								</select>
+							</div>
 
+							<div class="col-md-1 col-sm-6 col-xs-12">
+								<input type="button" value="查询电影" onclick="SearchCaseMovie()" class="btn btn-primary" style="width:100px" />
+							</div>
+
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								<input type="button" value="一键刷新" onclick="RefreshCaseMovie()" class="btn btn-primary" style="width:100px" />
+							</div>
+						</div>
+
+						<div class="form-group" style="border-top:1px solid #337AB7;margin-top:10px"></div>
+
+						<div id="div-part" class="row">
+
+						</div>
+					</form>
+
+				</div>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+
+		function RefreshCaseMovie() {
+
+			var find = document.getElementById("selectcase").value; 
+
+			$.ajax({
+
+				url: 'RefreshCaseMovie',
+
+				data: { id: find},
+
+				type: "POST",
+
+				//dataType: "json",
+
+				async: false,
+
+				success: function (data) {
+
+					$("#div-part").html(data);
+
+					console.log("刷新..");
+				},
+
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+					alert("获取数据异常，请检查！");
+				}
+			});
+		}
+
+		function SearchCaseMovie() {
+
+			var find = document.getElementById("selectcase").value; 
+
+			$.ajax({
+
+				url: 'SearchCaseMovie',
+
+				data: { id: find},
+
+				type: "POST",
+
+				//dataType: "json",
+
+				async: false,
+
+				success: function (data) {
+
+					$("#div-part").html(data);
+
+					console.log("刷新..");
+				},
+
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+					alert("获取数据异常，请检查！");
+				}
+			});
+		} 
+
+		window.onload = function () {
+			SearchCaseMovie()
+		}
+
+
+
+
+	</script>
 </div>
 
 

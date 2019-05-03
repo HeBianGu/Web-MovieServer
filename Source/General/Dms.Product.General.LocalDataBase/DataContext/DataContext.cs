@@ -10,8 +10,7 @@ namespace Dms.Product.General.LocalDataBase
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
-        }
-   
+        } 
 
         /// <summary>
         /// 用户
@@ -135,6 +134,16 @@ namespace Dms.Product.General.LocalDataBase
         /// 实时缓存数据 用于绘制实时曲线
         /// </summary>
         public DbSet<mbc_db_viptype> mbc_db_viptypes { get; set; }
+
+        /// <summary>
+        /// 实时缓存数据 用于绘制实时曲线
+        /// </summary>
+        public DbSet<mbc_dc_case> mbc_dc_cases { get; set; }
+
+        /// <summary>
+        /// 实时缓存数据 用于绘制实时曲线
+        /// </summary>
+        public DbSet<mbc_dv_movieimage> mbc_dv_movieimages { get; set; }
 
     }
 }
